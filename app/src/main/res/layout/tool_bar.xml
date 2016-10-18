@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/tool_bar"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/tool_bar_bottom_height"
+              android:background="@color/tool_bar_bottom_background"
+              android:orientation="vertical">
+
+    <View style="@style/AppTheme.DeepLine" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:id="@+id/page1"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/home_img"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:src="@drawable/tab_home"
+                />
+            <TextView
+                android:id="@+id/home_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:duplicateParentState="true"
+                android:textSize="12sp"
+                android:text="@string/page_home"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/page2"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/page2_img"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:src="@drawable/tab_explore"
+                />
+            <TextView
+                android:id="@+id/page2_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:duplicateParentState="true"
+                android:textSize="12sp"
+                android:text="@string/page_search"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/page3"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/page3_img"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:src="@drawable/tab_recommend"
+                />
+            <TextView
+                android:id="@+id/page3_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:duplicateParentState="true"
+                android:textSize="12sp"
+                android:text="@string/page_recommend"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/page4"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/page4_img"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:src="@drawable/tab_profile"
+                />
+            <TextView
+                android:id="@+id/page4_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:duplicateParentState="true"
+                android:textSize="12sp"
+                android:text="@string/page_mine"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

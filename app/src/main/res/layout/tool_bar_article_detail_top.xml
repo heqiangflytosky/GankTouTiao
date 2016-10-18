@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/tool_bar_bottom_height"
+              android:background="@color/theme_primary"
+              android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/menu_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:paddingLeft="20dp"
+            android:paddingRight="10dp"
+            android:src="@drawable/ic_menu_back"/>
+
+        <ImageView
+            android:id="@+id/menu_more"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:paddingLeft="10dp"
+            android:paddingRight="20dp"
+            android:src="@drawable/ic_menu_more"/>
+
+        <TextView
+            android:id="@+id/menu_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/menu_back"
+            android:layout_toLeftOf="@id/menu_more"
+            style="@style/ToolBarTopTitleTextAppearance"/>
+    </RelativeLayout>
+    <View style="@style/AppTheme.DeepLine"/>
+
+</LinearLayout>

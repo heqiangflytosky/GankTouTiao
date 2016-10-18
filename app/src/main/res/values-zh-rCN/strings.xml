@@ -1,0 +1,65 @@
+<resources>
+    <string name="app_name">开发者头条</string>
+
+    <string name="tab_daily_recommend">每日推荐</string>
+    <string name="tab_daily_android">Android</string>
+    <string name="tab_daily_ios">IOS</string>
+    <string name="tab_daily_web">前端</string>
+    <string name="tab_daily_app">App</string>
+    <string name="tab_daily_expand_res">拓展资源</string>
+
+    <string name="tip_loading_more">加载更多</string>
+
+    <string name="page_home">精选</string>
+    <string name="page_search">搜索</string>
+    <string name="page_recommend">推荐</string>
+    <string name="page_mine">我的</string>
+
+    <string name="text_anonymous">匿名</string>
+    <string name="text_years_ago">年前</string>
+    <string name="text_months_ago">个月前</string>
+    <string name="text_days_ago">天前</string>
+    <string name="text_hours_ago">小时前</string>
+    <string name="text_minutes_ago">分钟前</string>
+    <string name="text_seconds_ago">秒前</string>
+    <string name="text_unknown">未知</string>
+    <string name="text_update">已经是最新</string>
+    <string name="text_presenter">推荐者：</string>
+    <string name="share_page">「%1$s」：%2$1s (来自 @%3$sApp) </string>
+    <string name="text_share">分享</string>
+    <string name="text_my_collection">我的收藏</string>
+    <string name="text_my_read_history">阅读过的文章</string>
+    <string name="text_about_author">关于我们</string>
+    <string name="text_read_pages">%1$d篇</string>
+    <string name="text_search">搜索</string>
+    <string name="text_submit">提交</string>
+
+    <string name="page_title_me">我</string>
+    <string name="text_present">我要推荐</string>
+
+    <string name="tips_cannot_empty">%1$s 不能为空</string>
+    <string name="title_address">网址</string>
+    <string name="title_title">标题</string>
+    <string name="title_presenter_id">推荐者ID</string>
+    <string name="title_type">类型</string>
+
+    <string name="tips_upload_success">上传成功</string>
+    <string name="tips_upload_failed">上传失败</string>
+
+    <string-array name="article_detail_menu_more">
+        <item>刷新</item>
+        <item>复制链接</item>
+        <item>用浏览器打开</item>
+    </string-array>
+
+    <string-array name="present_type">
+        <item>@string/gank_type_android</item>
+        <item>@string/gank_type_ios</item>
+        <item>@string/gank_type_web</item>
+        <item>@string/gank_type_app</item>
+        <item>@string/gank_type_benefit</item>
+        <item>@string/gank_type_rest_video</item>
+        <item>@string/gank_type_expand_res</item>
+        <item>@string/gank_type_recommend</item>
+    </string-array>
+</resources>

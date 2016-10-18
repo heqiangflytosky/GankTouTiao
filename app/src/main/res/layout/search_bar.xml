@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/tool_bar_top_height"
+    android:background="@color/theme_primary"
+    android:paddingRight="67dip"
+    >
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_list_search"
+        android:layout_marginLeft="28dip"
+        android:layout_centerVertical="true"
+        />
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/search_edit"
+        android:textColorHint="#4C000000"
+        android:textColor="#CC000000"
+        android:textSize="18sp"
+        android:singleLine="true"
+        android:maxLength="100"
+        android:hint="@string/text_search"
+        android:imeOptions="actionSearch|flagNoExtractUi|flagNoFullscreen"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="67dip"
+        android:paddingRight="40dip"
+        android:background="@drawable/bg_search_edit_grey"
+        />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/clean_text_img"
+        android:src="@drawable/btn_list_delete_normal"
+        android:visibility="gone"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="12dip"/>
+
+</RelativeLayout>

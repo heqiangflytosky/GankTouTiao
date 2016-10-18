@@ -1,0 +1,70 @@
+<resources>
+    <string name="app_name">GankTouTiao</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="tab_daily_recommend">Daily recommendation</string>
+    <string name="tab_daily_android">Android</string>
+    <string name="tab_daily_ios">IOS</string>
+    <string name="tab_daily_web">WEB</string>
+    <string name="tab_daily_app">App</string>
+    <string name="tab_daily_expand_res">ExpandRes</string>
+
+    <string name="tip_loading_more">Loading More</string>
+
+    <string name="page_home">Home</string>
+    <string name="page_search">Search</string>
+    <string name="page_recommend">Recommend</string>
+    <string name="page_mine">Mine</string>
+
+    <string name="text_anonymous">Anonymous</string>
+    <string name="text_years_ago">years ago</string>
+    <string name="text_months_ago">months_ago</string>
+    <string name="text_days_ago">days ago</string>
+    <string name="text_hours_ago">hours ago</string>
+    <string name="text_minutes_ago">minutes ago</string>
+    <string name="text_seconds_ago">seconds ago</string>
+    <string name="text_unknown">Unknown</string>
+    <string name="text_update">Already up to date</string>
+    <string name="text_presenter">Presenter:</string>
+    <string name="share_page">「%1$s」:%2$1s (shared from @%3$s App) </string>
+    <string name="text_share">Share</string>
+    <string name="text_my_collection">My Collection</string>
+    <string name="text_my_read_history">My Read History</string>
+    <string name="text_about_author">About author</string>
+    <string name="text_read_pages">%1$d pages</string>
+    <string name="text_search">Search</string>
+    <string name="text_submit">Submit</string>
+
+    <string name="page_title_me">Me</string>
+    <string name="page_title_present">Present</string>
+
+    <string name="tips_cannot_empty">%1$s cannot be empty</string>
+    <string name="title_address">Address</string>
+    <string name="title_title">Title</string>
+    <string name="title_presenter_id">Presenter ID</string>
+    <string name="title_type">Type</string>
+
+    <string name="tips_upload_success">Upload Success</string>
+    <string name="tips_upload_failed">Upload Failed</string>
+
+
+    <string-array name="article_detail_menu_more">
+        <item>Refresh</item>
+        <item>Copy url</item>
+        <item>Open in browser</item>
+    </string-array>
+
+    <string-array name="present_type">
+        <item>@string/gank_type_android</item>
+        <item>@string/gank_type_ios</item>
+        <item>@string/gank_type_web</item>
+        <item>@string/gank_type_app</item>
+        <item>@string/gank_type_benefit</item>
+        <item>@string/gank_type_rest_video</item>
+        <item>@string/gank_type_expand_res</item>
+        <item>@string/gank_type_recommend</item>
+    </string-array>
+
+
+</resources>

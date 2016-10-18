@@ -1,0 +1,16 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="tool_bar_bottom_height">48dp</dimen>
+    <dimen name="tool_bar_top_height">48dp</dimen>
+
+    <dimen name="menu_more_pop_width">180dp</dimen>
+    <dimen name="menu_more_pop_offset_right">50dp</dimen>
+
+    <dimen name="layout_height_about_me_item">52dp</dimen>
+    <dimen name="layout_height_present_item">52dp</dimen>
+
+    <dimen name="text_size_present_edit">14sp</dimen>
+</resources>

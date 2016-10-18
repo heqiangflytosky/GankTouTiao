@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="gank_type_android" translatable="false">Android</string>
+    <string name="gank_type_ios" translatable="false">iOS</string>
+    <string name="gank_type_web" translatable="false">前端</string>
+    <string name="gank_type_app" translatable="false">App</string>
+    <string name="gank_type_benefit" translatable="false">福利</string>
+    <string name="gank_type_rest_video" translatable="false">休息视频</string>
+    <string name="gank_type_expand_res" translatable="false">拓展资源</string>
+    <string name="gank_type_recommend" translatable="false">瞎推荐</string>
+</resources>
