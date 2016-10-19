@@ -20,6 +20,7 @@ import com.android.hq.ganktoutiao.R;
 import com.android.hq.ganktoutiao.data.GankDetailData;
 import com.android.hq.ganktoutiao.data.GankItem;
 import com.android.hq.ganktoutiao.data.bean.GankItemBean;
+import com.android.hq.ganktoutiao.provider.GankProviderHelper;
 import com.android.hq.ganktoutiao.ui.activity.ArticleDetailActivity;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.iconics.typeface.IIcon;
@@ -124,12 +125,18 @@ public class AppUtils {
         textView.setCompoundDrawables(drawable, null, null, null);
     }
 
-    public static void startArticleDetailActivity(Activity activity, GankDetailData data){
+    public static void startArticleDetailActivity(Activity activity, final GankDetailData data){
         if(activity == null || data == null)
             return;
         Intent intent = new Intent(activity, ArticleDetailActivity.class);
         intent.putExtra(INTENT_ITEM_INFO,data);
         activity.startActivity(intent);
+        BackgroundHandler.execute(new Runnable() {
+            @Override
+            public void run() {
+                GankProviderHelper.getInstance().saveHistoryEntry(data);
+            }
+        });
     }
 
     public static void startBrowser(Activity activity, String url){

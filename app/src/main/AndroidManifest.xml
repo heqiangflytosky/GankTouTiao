@@ -39,6 +39,27 @@
             android:theme="@style/AboutMeActivityTheme">
 
         </activity>
+
+        <activity
+            android:name=".ui.activity.HistoryActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseListActivityTheme">
+
+        </activity>
+
+        <activity
+            android:name=".ui.activity.FavouriteActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseListActivityTheme">
+
+        </activity>
+        
+        <provider
+            android:authorities="gank"
+            android:name=".provider.GankContentProvider"
+            android:exported="false">
+
+        </provider>
     </application>
 
 </manifest>

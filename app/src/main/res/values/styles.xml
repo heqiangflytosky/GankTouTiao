@@ -29,6 +29,10 @@
 
     </style>
 
+    <style name="BaseListActivityTheme" parent="@style/LightTheme.NoActionBar">
+
+    </style>
+
     <style name="RecyclerItemTitleTextAppearance" parent="TextAppearance.AppCompat">
         <item name="android:textSize">13sp</item>
     </style>

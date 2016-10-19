@@ -8,16 +8,16 @@ import android.widget.TextView;
 import com.android.hq.ganktoutiao.R;
 
 /**
- * Created by heqiang on 16-10-18.
+ * Created by heqiang on 16-10-20.
  */
-public class AboutMeActivity extends Activity {
+public class HistoryActivity extends Activity {
     private TextView mTitle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about_me);
+        setContentView(R.layout.activity_history_layout);
         mTitle = (TextView) findViewById(R.id.menu_title);
-        mTitle.setText(getString(R.string.activity_title_about_me));
+        mTitle.setText(getString(R.string.text_my_read_history));
     }
 
     public void onBackClick(View v){

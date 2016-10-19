@@ -70,4 +70,20 @@ public class ViewHolder {
             mType.setVisibility(View.VISIBLE);
         }
     }
+
+    public static class HistoryFavViewHolder extends RecyclerView.ViewHolder{
+        public TextView mTitle;
+        public TextView mFrom;
+        public TextView mTime;
+        public TextView mType;
+
+        public HistoryFavViewHolder(ViewGroup parent) {
+            super(LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_item_content, parent,false));
+            mTitle = (TextView) itemView.findViewById(R.id.content_title);
+            mFrom = (TextView) itemView.findViewById(R.id.item_footer_from);
+            mTime = (TextView) itemView.findViewById(R.id.item_footer_time);
+            mType = (TextView) itemView.findViewById(R.id.item_footer_type);
+            mType.setVisibility(View.VISIBLE);
+        }
+    }
 }

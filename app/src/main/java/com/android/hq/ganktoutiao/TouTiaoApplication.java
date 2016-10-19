@@ -2,6 +2,7 @@ package com.android.hq.ganktoutiao;
 
 import android.app.Application;
 
+import com.android.hq.ganktoutiao.provider.GankProviderHelper;
 import com.android.hq.ganktoutiao.utils.AppUtils;
 
 /**
@@ -12,5 +13,6 @@ public class TouTiaoApplication extends Application {
     public void onCreate() {
         super.onCreate();
         AppUtils.init(this);
+        GankProviderHelper.createInstance(this);
     }
 }

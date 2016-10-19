@@ -1,0 +1,16 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+    <include layout="@layout/tool_bar_top_activity_normal"/>
+    <fragment
+        android:name="com.android.hq.ganktoutiao.ui.fragment.HistoryFragment"
+        android:id="@+id/fragment_history"
+        android:tag="@string/text_my_read_history"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </fragment>
+
+</LinearLayout>

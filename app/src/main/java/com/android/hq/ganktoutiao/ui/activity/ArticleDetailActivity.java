@@ -20,7 +20,9 @@ import android.widget.TextView;
 import com.android.hq.ganktoutiao.R;
 import com.android.hq.ganktoutiao.data.GankDetailData;
 import com.android.hq.ganktoutiao.data.bean.GankItemBean;
+import com.android.hq.ganktoutiao.provider.GankProviderHelper;
 import com.android.hq.ganktoutiao.utils.AppUtils;
+import com.android.hq.ganktoutiao.utils.BackgroundHandler;
 
 /**
  * Created by heqiang on 16-10-11.
@@ -37,6 +39,8 @@ public class ArticleDetailActivity extends Activity implements View.OnClickListe
     private TextView mPresenter;
 
     private ProgressBar mProgressBar;
+
+    private boolean isFavourite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +78,35 @@ public class ArticleDetailActivity extends Activity implements View.OnClickListe
         mWebView.setWebChromeClient(mWebChromeClient);
         mWebView.setWebViewClient(mWebViewClient);
         mWebView.loadUrl(mData.url);
+
+        uppdateFavStatus();
+    }
+
+    private void uppdateFavStatus(){
+        BackgroundHandler.execute(new Runnable() {
+            @Override
+            public void run() {
+                long id = GankProviderHelper.getInstance().queryFavouriteEntry(mData.gank_id, mData.gank_type);
+                final boolean isFav = id < 0 ? false : true;
+                if(!isDestroyed()){
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            setFavorite(isFav);
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    private void setFavorite(boolean favorite){
+        isFavourite = favorite;
+        if(favorite) {
+            mFavorite.setImageResource(R.drawable.ic_action_favorite);
+        } else {
+            mFavorite.setImageResource(R.drawable.ic_action_favorite_outline_gray);
+        }
     }
 
     @Override
@@ -125,7 +158,36 @@ public class ArticleDetailActivity extends Activity implements View.OnClickListe
                 listPopupWindow.show();
                 break;
             case R.id.favorite:
-
+                BackgroundHandler.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(isFavourite){
+                            boolean success = GankProviderHelper.getInstance().deleteFavouriteEntry(mData.gank_id, mData.gank_type);
+                            if (success){
+                                if(!isDestroyed()){
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            setFavorite(false);
+                                        }
+                                    });
+                                }
+                            }
+                        }else{
+                            boolean success = GankProviderHelper.getInstance().saveFavouriteEntry(mData);
+                            if(success){
+                                if(!isDestroyed()){
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            setFavorite(true);
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    }
+                });
                 break;
             case R.id.share:
                 AppUtils.share(this, mData.title, mData.url);
@@ -140,7 +202,6 @@ public class ArticleDetailActivity extends Activity implements View.OnClickListe
     private class GankWebChromeClient extends WebChromeClient{
         @Override
         public void onProgressChanged(WebView view, int newProgress) {
-            Log.e("Test", "newProgress = " + newProgress);
             super.onProgressChanged(view, newProgress);
             mProgressBar.setProgress(newProgress);
             if(newProgress == 100){

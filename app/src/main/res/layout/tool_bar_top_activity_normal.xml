@@ -21,7 +21,6 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_toRightOf="@id/menu_back"
-            android:text="@string/activity_title_about_me"
             style="@style/ToolBarTopTitleTextAppearance"/>
     </RelativeLayout>
 

@@ -3,7 +3,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
-    <include layout="@layout/tool_bar_about_me_top"/>
+    <include layout="@layout/tool_bar_top_activity_normal"/>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">

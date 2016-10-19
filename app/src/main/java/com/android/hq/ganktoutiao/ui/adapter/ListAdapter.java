@@ -1,6 +1,7 @@
 package com.android.hq.ganktoutiao.ui.adapter;
 
 import android.app.Fragment;
+import android.os.SystemClock;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.android.hq.ganktoutiao.data.GankImageItem;
 import com.android.hq.ganktoutiao.data.GankItem;
 import com.android.hq.ganktoutiao.data.GankSearchItem;
 import com.android.hq.ganktoutiao.data.GankType;
+import com.android.hq.ganktoutiao.data.HistoryFavItem;
 import com.android.hq.ganktoutiao.utils.AppUtils;
 import com.bumptech.glide.Glide;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
@@ -33,6 +35,7 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_HEADER = 3;
     private static final int TYPE_FOOTER = 4;
     private static final int TYPE_SEARCH_ITEM = 5;
+    private static final int TYPE_HISTORY_FAV_ITEM = 6;
 
     private Fragment mFragment;
     private List<GankItem> mList;
@@ -54,6 +57,8 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 return new ViewHolder.FooterHolder(parent);
             case TYPE_SEARCH_ITEM:
                 return new ViewHolder.SearchViewHolder(parent);
+            case TYPE_HISTORY_FAV_ITEM:
+                return new ViewHolder.HistoryFavViewHolder(parent);
         }
         return null;
     }
@@ -71,6 +76,8 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             return TYPE_FOOTER;
         }else if(item instanceof GankSearchItem){
             return TYPE_SEARCH_ITEM;
+        }else if(item instanceof HistoryFavItem){
+            return TYPE_HISTORY_FAV_ITEM;
         }
         return TYPE_INVALID;
     }
@@ -91,7 +98,8 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             contentViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    AppUtils.startArticleDetailActivity(mFragment.getActivity(), new GankDetailData(item.url, item.who, item.desc));
+                    AppUtils.startArticleDetailActivity(mFragment.getActivity(),
+                            new GankDetailData(item._id, item.type, item.url, item.who, item.desc, item.publishedAt, System.currentTimeMillis()));
                 }
             });
         }else if(holder instanceof ViewHolder.ImageViewHolder){
@@ -142,7 +150,27 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             contentViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    AppUtils.startArticleDetailActivity(mFragment.getActivity(), new GankDetailData(item.url, item.who, item.desc));
+                    AppUtils.startArticleDetailActivity(mFragment.getActivity(),
+                            new GankDetailData(item.ganhuo_id, item.type, item.url, item.who, item.desc, item.publishedAt, System.currentTimeMillis()));
+                }
+            });
+        }else if (holder instanceof ViewHolder.HistoryFavViewHolder){
+            ViewHolder.HistoryFavViewHolder contentViewHolder = (ViewHolder.HistoryFavViewHolder) holder;
+            final HistoryFavItem item = (HistoryFavItem) mList.get(position);
+            contentViewHolder.mTitle.setText(item.title);
+            String who = item.who;
+            if(!TextUtils.isEmpty(who))
+                contentViewHolder.mFrom.setText(who);
+            String time = AppUtils.formatPublishedTime(item.published_date);
+            if(!TextUtils.isEmpty(time))
+                contentViewHolder.mTime.setText(time);
+            contentViewHolder.mType.setText(item.gank_type);
+
+            contentViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AppUtils.startArticleDetailActivity(mFragment.getActivity(),
+                            new GankDetailData(item.gank_id, item.gank_type, item.url, item.who, item.title, item.published_date, System.currentTimeMillis()));
                 }
             });
         }
@@ -155,11 +183,15 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public void updateData(List<GankItem> list){
         if(mList == null || !mList.containsAll(list)){
-            mList = list;
-            notifyDataSetChanged();
+            forceUpdateData(list);
         }else{
             Toast.makeText(mFragment.getActivity(), R.string.text_update, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void forceUpdateData(List<GankItem> list){
+        mList = list;
+        notifyDataSetChanged();
     }
 
     public void loadMoreData(List<GankItem> list){
