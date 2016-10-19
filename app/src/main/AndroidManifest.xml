@@ -32,6 +32,13 @@
             android:theme="@style/ArticleDetailActivityTheme">
 
         </activity>
+
+        <activity
+            android:name=".ui.activity.AboutMeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AboutMeActivityTheme">
+
+        </activity>
     </application>
 
 </manifest>

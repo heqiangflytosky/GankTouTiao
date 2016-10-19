@@ -8,12 +8,23 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
-        <WebView
-            android:id="@+id/webview"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+            <WebView
+                android:id="@+id/webview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        </WebView>
+            </WebView>
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="match_parent"
+                android:layout_height="5px"
+                android:visibility="gone"
+                android:progressDrawable="@drawable/progress_drawable"
+                style="?android:attr/progressBarStyleHorizontal"/>
+        </FrameLayout>
     </LinearLayout>
 
     <include layout="@layout/tool_bar_article_detail_bottom"/>

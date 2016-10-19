@@ -9,4 +9,8 @@
     <string name="gank_type_rest_video" translatable="false">休息视频</string>
     <string name="gank_type_expand_res" translatable="false">拓展资源</string>
     <string name="gank_type_recommend" translatable="false">瞎推荐</string>
+
+    <string name="about_me_csdn_url" translatable="false">CSDN: http://blog.csdn.net/heqiangflytosky</string>
+    <string name="about_me_github_url" translatable="false">GitHub: https://github.com/heqiangflytosky</string>
+    <string name="about_me_introduction_content" translatable="false">每日分享技术干货和妹子图，还有供大家中午休息的休闲视频</string>
 </resources>

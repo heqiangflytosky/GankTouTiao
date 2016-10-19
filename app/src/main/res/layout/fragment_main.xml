@@ -14,7 +14,7 @@
         app:tabMinWidth="75dp"
         app:tabTextAppearance="@style/TabTextAppearance"
         app:tabBackground="@color/main_color"
-        app:tabIndicatorColor="@android:color/holo_red_dark"
+        app:tabIndicatorColor="@color/tab_bottom_line_color"
         app:tabSelectedTextColor="@color/tab_text_color"
         app:tabTextColor="@color/tab_text_color_selected"/>
     <android.support.v4.view.ViewPager

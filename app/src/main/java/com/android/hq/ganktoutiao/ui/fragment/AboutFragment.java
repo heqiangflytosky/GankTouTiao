@@ -1,6 +1,7 @@
 package com.android.hq.ganktoutiao.ui.fragment;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -9,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.android.hq.ganktoutiao.R;
+import com.android.hq.ganktoutiao.ui.activity.AboutMeActivity;
+import com.android.hq.ganktoutiao.ui.activity.MainActivity;
 
 /**
  * Created by heqiang on 16-10-13.
@@ -54,7 +57,8 @@ public class AboutFragment extends Fragment implements View.OnClickListener{
 
                 break;
             case R.id.layout_about_author:
-
+                Intent intent = new Intent(getActivity(), AboutMeActivity.class);
+                getActivity().startActivity(intent);
                 break;
         }
     }

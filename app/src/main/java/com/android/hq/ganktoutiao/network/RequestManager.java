@@ -39,8 +39,9 @@ import rx.schedulers.Schedulers;
  * Created by heqiang on 16-9-6.
  */
 public class RequestManager {
-    private static final int MAX_AGE = 2*60*60;//2个小时；
-    private static final int CACHE_SIZE = 10 * 1024 * 1024;//10M；
+    private static final String TAG = "RequestManager";
+    private static final int MAX_AGE = 4 * 60 * 60;//缓存4个小时；
+    private static final int CACHE_SIZE = 10 * 1024 * 1024;//缓存10M；
     private static SimpleDateFormat sDataFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
     private static RequestManager sInstance;
     private GankService mGankService;
@@ -60,10 +61,6 @@ public class RequestManager {
                             .header("Cache-Control", "max-age=" + MAX_AGE)
                             .build();
                 }
-//                Response r =  response.newBuilder()
-//                        .header("Cache-Control", "public, max-age=" + 60*60)
-//                        .removeHeader("Pragma")
-//                        .build();
                 return response;
             }
         };
@@ -95,41 +92,6 @@ public class RequestManager {
     }
 
     public void getDailyData(final CallBack<DailyDataResponse> callback){
-        /*
-        mGankService.getDayHistory()
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
-                .subscribe(new Observer<DayHistoryResponse>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(DayHistoryResponse dayHistoryResponse) {
-                        Calendar c = Calendar.getInstance(Locale.CHINA);
-                        try {
-                            c.setTime(sDataFormat.parse(dayHistoryResponse.results.get(0)));
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                        int year = c.get(Calendar.YEAR);
-                        int month = c.get(Calendar.MONTH) + 1;
-                        int day = c.get(Calendar.DAY_OF_MONTH);
-                        Log.e("Test","year = "+year+",month="+month+",day="+day);
-                        mGankService.getDailyData(year, month, day)
-                                .subscribeOn(Schedulers.io())
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe(observer);
-                    }
-                });
-*/
-
         mGankService.getDayHistory()
                 .filter(new Func1<DayHistoryResponse, Boolean>() {
 
@@ -158,16 +120,6 @@ public class RequestManager {
                         return calendar != null;
                     }
                 })
-//                .map(new Func1<Calendar, Observable<DailyDataResponse>>() {
-//                    @Override
-//                    public Observable<DailyDataResponse> call(Calendar calendar) {
-//                        int year = calendar.get(Calendar.YEAR);
-//                        int month = calendar.get(Calendar.MONTH) + 1;
-//                        int day = calendar.get(Calendar.DAY_OF_MONTH);
-//                        Log.e("Test","year = "+year+",month="+month+",day="+day);
-//                        return mGankService.getDailyData(year, month, day);
-//                    }
-//                })
                 .flatMap(new Func1<Calendar, Observable<DailyDataResponse>>() {
                     @Override
                     public Observable<DailyDataResponse> call(Calendar calendar) {
@@ -183,19 +135,19 @@ public class RequestManager {
                 .subscribe(new Observer<DailyDataResponse>() {
                     @Override
                     public void onCompleted() {
-                        Log.e("Test","getDailyData onCompleted");
+                        Log.d(TAG, "getDailyData onCompleted");
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         callback.onFail();
-                        Log.e("Test", "getDailyData onError");
+                        Log.e(TAG, "getDailyData onError");
                     }
 
                     @Override
                     public void onNext(DailyDataResponse dailyDataResponse) {
                         callback.onSuccess(dailyDataResponse);
-                        Log.e("Test", "getDailyData onNext");
+                        Log.d(TAG, "getDailyData onNext");
                     }
                 });
     }

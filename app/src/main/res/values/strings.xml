@@ -48,6 +48,11 @@
     <string name="tips_upload_success">Upload Success</string>
     <string name="tips_upload_failed">Upload Failed</string>
 
+    <string name="activity_title_about_me">About me</string>
+    <string name="activity_about_me_item_title_introduction">Introduction</string>
+    <string name="activity_about_me_item_title_developer">Developer</string>
+    <string name="activity_about_me_item_data_source">Data Source: http://gank.io/api</string>
+    <string name="activity_about_me_item_project_code">Project Code: https://github.com/heqiangflytosky/GankTouTiao</string>
 
     <string-array name="article_detail_menu_more">
         <item>Refresh</item>

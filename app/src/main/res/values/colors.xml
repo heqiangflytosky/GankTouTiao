@@ -31,4 +31,10 @@
     <color name="button_bg_disabled">#ffa8b2bd</color>
 
     <color name="tool_bar_bottom_background">@android:color/white</color>
+
+    <color name="tab_bottom_line_color">@android:color/holo_red_dark</color>
+    <color name="webview_progress_color">@color/green</color>
+    <color name="webview_progress_start_color">#00BB00</color>
+    <color name="webview_progress_center_color">#009100</color>
+    <color name="webview_progress_end_color">#006000</color>
 </resources>

@@ -2,7 +2,9 @@ package com.android.hq.ganktoutiao.ui.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
@@ -12,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListPopupWindow;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.hq.ganktoutiao.R;
@@ -32,6 +35,8 @@ public class ArticleDetailActivity extends Activity implements View.OnClickListe
     private ImageView mShare;
     private TextView mTitle;
     private TextView mPresenter;
+
+    private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +61,7 @@ public class ArticleDetailActivity extends Activity implements View.OnClickListe
         mPresenter = (TextView) findViewById(R.id.presenter);
         mFavorite = (ImageView) findViewById(R.id.favorite);
         mShare = (ImageView) findViewById(R.id.share);
+        mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
 
         mTitle.setText(mData.title);
         mBack.setOnClickListener(this);
@@ -65,8 +71,8 @@ public class ArticleDetailActivity extends Activity implements View.OnClickListe
         mPresenter.setText(getResources().getString(R.string.text_presenter) + mData.who);
 
         mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.setWebChromeClient(new WebChromeClient());
-        mWebView.setWebViewClient(new WebViewClient());
+        mWebView.setWebChromeClient(mWebChromeClient);
+        mWebView.setWebViewClient(mWebViewClient);
         mWebView.loadUrl(mData.url);
     }
 
@@ -127,6 +133,34 @@ public class ArticleDetailActivity extends Activity implements View.OnClickListe
             default:
 
                 break;
+        }
+    }
+
+    private GankWebChromeClient mWebChromeClient = new GankWebChromeClient();
+    private class GankWebChromeClient extends WebChromeClient{
+        @Override
+        public void onProgressChanged(WebView view, int newProgress) {
+            Log.e("Test", "newProgress = " + newProgress);
+            super.onProgressChanged(view, newProgress);
+            mProgressBar.setProgress(newProgress);
+            if(newProgress == 100){
+                mProgressBar.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    private GankWebViewClient mWebViewClient = new GankWebViewClient();
+    private class GankWebViewClient extends WebViewClient{
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            super.onPageStarted(view, url, favicon);
+            mProgressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            super.onPageFinished(view, url);
+            mProgressBar.setVisibility(View.GONE);
         }
     }
 }

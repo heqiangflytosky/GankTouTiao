@@ -46,6 +46,12 @@
     <string name="tips_upload_success">上传成功</string>
     <string name="tips_upload_failed">上传失败</string>
 
+    <string name="activity_title_about_me">关于我们</string>
+    <string name="activity_about_me_item_title_introduction">简介</string>
+    <string name="activity_about_me_item_title_developer">开发者</string>
+    <string name="activity_about_me_item_data_source">数据来源： http://gank.io/api</string>
+    <string name="activity_about_me_item_project_code">项目源码： https://github.com/heqiangflytosky/GankTouTiao</string>
+
     <string-array name="article_detail_menu_more">
         <item>刷新</item>
         <item>复制链接</item>
