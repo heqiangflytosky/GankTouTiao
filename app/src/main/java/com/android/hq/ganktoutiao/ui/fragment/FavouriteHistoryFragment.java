@@ -7,10 +7,6 @@ import android.database.ContentObserver;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.android.hq.ganktoutiao.data.GankDetailData;
 import com.android.hq.ganktoutiao.data.GankItem;
@@ -24,18 +20,25 @@ import java.util.List;
 /**
  * Created by heqiang on 16-10-20.
  */
-public abstract class UserDataFragment extends BaseFragment implements LoaderManager.LoaderCallbacks<List<GankDetailData>> {
+public class FavouriteHistoryFragment extends BaseFragment implements LoaderManager.LoaderCallbacks<List<GankDetailData>> {
+    public final static String FRAGMENT_TYPE = "FRAGMENT_TYPE";
     public final static int FRAGMENT_TYPE_HISTORY = 1;
     public final static int FRAGMENT_TYPE_FAV = 2;
+
+    public final static String FRAGMENT_TAG_HISTORY = "FRAGMENT_TAG_HISTORY";
+    public final static String FRAGMENT_TAG_FAVOURITE = "FRAGMENT_TAG_FAVOURITE";
 
     private final static int HISTORY_LOADER_ID = 1000;
     private final static int FAVOURITE_LOADER_ID = 1001;
 
     private ContentObserver mContentObserver;
 
+    private int mType;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mType = getArguments().getInt(FRAGMENT_TYPE);
         registerObserver();
     }
 
@@ -177,5 +180,7 @@ public abstract class UserDataFragment extends BaseFragment implements LoaderMan
         }
     }
 
-    public abstract int getType();
+    private int getType(){
+        return mType;
+    }
 }

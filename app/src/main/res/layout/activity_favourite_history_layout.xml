@@ -4,13 +4,11 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
     <include layout="@layout/tool_bar_top_activity_normal"/>
-    <fragment
-        android:name="com.android.hq.ganktoutiao.ui.fragment.HistoryFragment"
-        android:id="@+id/fragment_history"
-        android:tag="@string/text_my_read_history"
+    <LinearLayout
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </fragment>
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+    </LinearLayout>
 
 </LinearLayout>

@@ -12,9 +12,7 @@ import android.widget.TextView;
 import com.android.hq.ganktoutiao.R;
 import com.android.hq.ganktoutiao.provider.GankProviderHelper;
 import com.android.hq.ganktoutiao.ui.activity.AboutMeActivity;
-import com.android.hq.ganktoutiao.ui.activity.FavouriteActivity;
-import com.android.hq.ganktoutiao.ui.activity.HistoryActivity;
-import com.android.hq.ganktoutiao.ui.activity.MainActivity;
+import com.android.hq.ganktoutiao.ui.activity.FavouriteHistoryActivity;
 import com.android.hq.ganktoutiao.utils.BackgroundHandler;
 
 /**
@@ -96,11 +94,13 @@ public class AboutFragment extends Fragment implements View.OnClickListener{
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.layout_favourite:
-                Intent favIntent = new Intent(getActivity(), FavouriteActivity.class);
+                Intent favIntent = new Intent(getActivity(), FavouriteHistoryActivity.class);
+                favIntent.putExtra(FavouriteHistoryActivity.ACTIVITY_TYPE, FavouriteHistoryActivity.ACTIVITY_TYPE_FAV);
                 getActivity().startActivity(favIntent);
                 break;
             case R.id.layout_read_history:
-                Intent historyIntent = new Intent(getActivity(), HistoryActivity.class);
+                Intent historyIntent = new Intent(getActivity(), FavouriteHistoryActivity.class);
+                historyIntent.putExtra(FavouriteHistoryActivity.ACTIVITY_TYPE, FavouriteHistoryActivity.ACTIVITY_TYPE_HISTORY);
                 getActivity().startActivity(historyIntent);
                 break;
             case R.id.layout_about_author:

@@ -41,14 +41,7 @@
         </activity>
 
         <activity
-            android:name=".ui.activity.HistoryActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/BaseListActivityTheme">
-
-        </activity>
-
-        <activity
-            android:name=".ui.activity.FavouriteActivity"
+            android:name=".ui.activity.FavouriteHistoryActivity"
             android:screenOrientation="portrait"
             android:theme="@style/BaseListActivityTheme">
 
