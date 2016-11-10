@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">开发者头条</string>
+    <string name="app_name">技术头条</string>
 
     <string name="tab_daily_recommend">每日推荐</string>
     <string name="tab_daily_android">Android</string>
