@@ -13,4 +13,8 @@
     <dimen name="layout_height_present_item">52dp</dimen>
 
     <dimen name="text_size_present_edit">14sp</dimen>
+
+    <dimen name="empty_tips_text_size_light">18sp</dimen>
+    <dimen name="empty_title_margin_left">12dip</dimen>
+    <dimen name="empty_title_margin_right">12dip</dimen>
 </resources>

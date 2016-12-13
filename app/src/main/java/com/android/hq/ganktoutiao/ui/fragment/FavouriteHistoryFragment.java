@@ -117,8 +117,12 @@ public class FavouriteHistoryFragment extends BaseFragment implements LoaderMana
                 mRefreshLayout.setRefreshing(false);
                 ArrayList<GankItem> history_list  = new ArrayList<GankItem>();
                 if(gankDetailDatas != null){
-                    for (GankDetailData bean : gankDetailDatas){
-                        history_list.add(new HistoryFavItem(bean));
+                    if(gankDetailDatas.isEmpty()){
+                        updateState(STATE_HISTORY_EMPTY);
+                    }else{
+                        for (GankDetailData bean : gankDetailDatas){
+                            history_list.add(new HistoryFavItem(bean));
+                        }
                     }
                 }
                 mAdapter.forceUpdateData(history_list);
@@ -128,8 +132,12 @@ public class FavouriteHistoryFragment extends BaseFragment implements LoaderMana
                 mRefreshLayout.setRefreshing(false);
                 ArrayList<GankItem> fav_list  = new ArrayList<GankItem>();
                 if(gankDetailDatas != null){
-                    for (GankDetailData bean : gankDetailDatas){
-                        fav_list.add(new HistoryFavItem(bean));
+                    if(gankDetailDatas.isEmpty()){
+                        updateState(STATE_FAVOURITE_EMPTY);
+                    }else{
+                        for (GankDetailData bean : gankDetailDatas){
+                            fav_list.add(new HistoryFavItem(bean));
+                        }
                     }
                 }
                 mAdapter.forceUpdateData(fav_list);

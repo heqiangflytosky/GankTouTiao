@@ -9,9 +9,12 @@ import android.content.pm.LabeledIntent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.Browser;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.TextView;
@@ -38,6 +41,13 @@ public class AppUtils {
     private static Context mAppContext;
     private static SimpleDateFormat sDataFormatZ = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
     private static SimpleDateFormat sDataFormat6S = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS");
+
+    public static final String TYPE_WIFI = "wifi";
+    public static final String TYPE_2G = "2g";
+    public static final String TYPE_3G = "3g";
+    public static final String TYPE_4G = "4g";
+    public static final String TYPE_OFF = "off";
+    public static final String TYPE_UNKNOWN = "unknown";
 
     public static final String INTENT_ITEM_INFO = "intent_item_info";
 
@@ -195,5 +205,53 @@ public class AppUtils {
             }
         }
         return sVerionName;
+    }
+
+    public static boolean isNetworkWorking(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (null == connectivityManager) {
+            return false;
+        }
+        NetworkInfo wifiInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        NetworkInfo mobileInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        if (null != wifiInfo && NetworkInfo.State.CONNECTED == wifiInfo.getState()
+                || null != mobileInfo && NetworkInfo.State.CONNECTED == mobileInfo.getState()) {
+            return true;
+        }
+        return false;
+    }
+
+    public static String getNetworkType(Context context) {
+        try {
+            ConnectivityManager connectivity = (ConnectivityManager) context
+                    .getSystemService(Context.CONNECTIVITY_SERVICE);
+            if (connectivity != null) {
+                NetworkInfo info = connectivity.getActiveNetworkInfo();
+                if (info != null && info.isConnected()) {
+                    if (info.getType() == ConnectivityManager.TYPE_WIFI) {
+                        return TYPE_WIFI;
+                    } else {
+                        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                        if (tm.getNetworkType() == TelephonyManager.NETWORK_TYPE_GPRS
+                                || tm.getNetworkType() == TelephonyManager.NETWORK_TYPE_EDGE
+                                || tm.getNetworkType() == TelephonyManager.NETWORK_TYPE_CDMA
+                                || tm.getNetworkType() == TelephonyManager.NETWORK_TYPE_1xRTT
+                                || tm.getNetworkType() == TelephonyManager.NETWORK_TYPE_IDEN) {
+                            return TYPE_2G;
+                        } else if (tm.getNetworkType() == TelephonyManager.NETWORK_TYPE_LTE) {
+                            return TYPE_4G;
+                        } else {
+                            return TYPE_3G;
+                        }
+                    }
+                } else {
+                    return TYPE_OFF;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return TYPE_UNKNOWN;
     }
 }

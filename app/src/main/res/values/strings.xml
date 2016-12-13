@@ -71,5 +71,11 @@
         <item>@string/gank_type_recommend</item>
     </string-array>
 
+    <string name="empty_view_network_error">Network error, click to set network</string>
+    <string name="empty_view_update_error">Load error, click to refresh</string>
+    <string name="empty_view_update_empty">No data, click to refresh</string>
+    <string name="empty_view_empty_data">No data</string>
+    <string name="empty_view_load_more_empty">No more data</string>
+    <string name="empty_view_load_more_error">Load error</string>
 
 </resources>

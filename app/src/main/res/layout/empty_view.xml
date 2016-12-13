@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true">
+        <ImageView
+            android:id="@+id/empty_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="80dp"
+            android:layout_marginRight="80dp"
+            android:layout_centerHorizontal="true">
+            <TextView
+                android:id="@+id/empty_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.Small.EmptyView.Title"
+                android:layout_marginLeft="@dimen/empty_title_margin_left"
+                android:layout_marginRight="@dimen/empty_title_margin_right"
+                android:includeFontPadding="false"
+                android:gravity="center"/>
+            <TextView
+                android:id="@+id/empty_summary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.Small.EmptyView.Summary"
+                android:layout_marginLeft="@dimen/empty_title_margin_left"
+                android:layout_marginRight="@dimen/empty_title_margin_right"
+                android:includeFontPadding="false"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</RelativeLayout>

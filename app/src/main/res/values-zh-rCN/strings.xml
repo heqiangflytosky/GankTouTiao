@@ -68,4 +68,12 @@
         <item>@string/gank_type_expand_res</item>
         <item>@string/gank_type_recommend</item>
     </string-array>
+
+    <string name="empty_view_network_error">网络异常，点击设置网络</string>
+    <string name="empty_view_update_error">加载失败，点击重新加载</string>
+    <string name="empty_view_update_empty">暂无数据，点击重新加载</string>
+    <string name="empty_view_empty_data">暂无数据</string>
+    <string name="empty_view_load_more_empty">没有更多了</string>
+    <string name="empty_view_load_more_error">加载失败</string>
+
 </resources>

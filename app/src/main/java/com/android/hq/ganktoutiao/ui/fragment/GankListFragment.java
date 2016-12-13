@@ -1,23 +1,11 @@
 package com.android.hq.ganktoutiao.ui.fragment;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.android.hq.ganktoutiao.R;
 import com.android.hq.ganktoutiao.data.GankContentItem;
 import com.android.hq.ganktoutiao.data.GankItem;
-import com.android.hq.ganktoutiao.data.GankType;
 import com.android.hq.ganktoutiao.data.bean.GankDataResponse;
 import com.android.hq.ganktoutiao.data.bean.GankItemBean;
 import com.android.hq.ganktoutiao.network.CallBack;
 import com.android.hq.ganktoutiao.network.RequestManager;
-import com.android.hq.ganktoutiao.ui.adapter.ListAdapter;
 
 import java.util.ArrayList;
 
@@ -42,11 +30,13 @@ public abstract class GankListFragment extends BaseFragment {
                 }
                 mAdapter.updateData(list);
                 mCurrentPage = 1;
+                updateSuccess(list.isEmpty());
             }
 
             @Override
             public void onFail() {
                 mRefreshLayout.setRefreshing(false);
+                updateError();
             }
         });
     }
@@ -64,14 +54,14 @@ public abstract class GankListFragment extends BaseFragment {
                     }
                 }
                 mAdapter.loadMoreData(list);
-                mLoadingMore = false;
+                loadMoreSuccess(list.isEmpty());
             }
 
             @Override
             public void onFail() {
                 mCurrentPage--;
                 mAdapter.loadMoreData(null);
-                mLoadingMore = false;
+                loadMoreError();
             }
         });
     }

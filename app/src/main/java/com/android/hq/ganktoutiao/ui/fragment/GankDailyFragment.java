@@ -97,11 +97,13 @@ public class GankDailyFragment extends BaseFragment {
                     }
                 }
                 mAdapter.updateData(list);
+                updateSuccess(list.isEmpty());
             }
 
             @Override
             public void onFail() {
                 mRefreshLayout.setRefreshing(false);
+                updateError();
             }
         });
     }
