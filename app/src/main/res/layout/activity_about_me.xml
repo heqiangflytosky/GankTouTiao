@@ -50,11 +50,18 @@
                 android:layout_below="@id/project_introduction"
                 style="@style/AboutMeItemTitleTextAppearance"/>
             <TextView
+                android:id="@+id/main_page_developer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/about_me_main_page_url"
+                android:layout_below="@id/title_developer"
+                style="@style/AboutMeItemContentTextAppearance"/>
+            <TextView
                 android:id="@+id/csdn_developer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/about_me_csdn_url"
-                android:layout_below="@id/title_developer"
+                android:layout_below="@id/main_page_developer"
                 style="@style/AboutMeItemContentTextAppearance"/>
             <TextView
                 android:id="@+id/github_developer"

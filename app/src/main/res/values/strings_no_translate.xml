@@ -12,5 +12,6 @@
 
     <string name="about_me_csdn_url" translatable="false">CSDN: http://blog.csdn.net/heqiangflytosky</string>
     <string name="about_me_github_url" translatable="false">GitHub: https://github.com/heqiangflytosky</string>
+    <string name="about_me_main_page_url" translatable="false">个人主页: http://www.heqiangfly.com</string>
     <string name="about_me_introduction_content" translatable="false">每日分享技术干货和妹子图，还有供大家中午休息的休闲视频</string>
 </resources>
