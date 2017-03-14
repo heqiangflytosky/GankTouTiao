@@ -17,10 +17,17 @@ import com.android.hq.ganktoutiao.ui.adapter.ListAdapter;
 import com.android.hq.ganktoutiao.ui.view.EmptyView;
 import com.android.hq.ganktoutiao.utils.NetWorkObserver;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
+
 /**
  * Created by heqiang on 16-9-2.
  */
 public abstract class BaseFragment extends Fragment {
+    private Unbinder mUnbinder;
+
     public static final int STATE_LOADING = 0;
     public static final int STATE_UPDATE_SUCCESS = 1;
     public static final int STATE_UPDATE_ERROR = 2;
@@ -29,9 +36,12 @@ public abstract class BaseFragment extends Fragment {
     public static final int STATE_FAVOURITE_EMPTY = 5;
     public static final int STATE_HISTORY_EMPTY = 6;
 
+    @BindView(R.id.recycler_view)
     protected RecyclerView mRecyclerView;
+    @BindView(R.id.refresh)
     protected SwipeRefreshLayout mRefreshLayout;
     protected ListAdapter mAdapter;
+    @BindView(R.id.empty_view)
     protected EmptyView mEmptyView;
 
     private boolean mLoadingMore = false;
@@ -43,14 +53,14 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.refresh_recyclerview_fragment, null);
-        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
+        mUnbinder = ButterKnife.bind(this, rootView);
+
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mRecyclerView.getContext()));
         mRecyclerView.addOnScrollListener(mOnScrollListener);
 
         mAdapter = new ListAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
 
-        mRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.refresh);
         mRefreshLayout.setOnRefreshListener(mOnRefreshListener);
         mRefreshLayout.setColorSchemeResources(R.color.blue, R.color.green, R.color.orange);
 
@@ -59,14 +69,6 @@ public abstract class BaseFragment extends Fragment {
 
         mRefreshLayout.setEnabled(isEnablePullRefresh());
         mCanLoadingMore = isEnableLoadingMore();
-
-        mEmptyView = (EmptyView) rootView.findViewById(R.id.empty_view);
-        mEmptyView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                forceRefreshDate();
-            }
-        });
 
         return rootView;
     }
@@ -89,6 +91,7 @@ public abstract class BaseFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         NetWorkObserver.unRegister(mNetworkListener);
+        mUnbinder.unbind();
     }
 
     private void forceRefreshDate(){
@@ -199,6 +202,11 @@ public abstract class BaseFragment extends Fragment {
 //            }
         }
     };
+
+    @OnClick(R.id.empty_view)
+    public void OnEmptyClicked(){
+        forceRefreshDate();
+    }
 
     public abstract void updateData();
     public abstract void loadMore();

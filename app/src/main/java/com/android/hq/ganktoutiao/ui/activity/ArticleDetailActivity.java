@@ -24,21 +24,36 @@ import com.android.hq.ganktoutiao.provider.GankProviderHelper;
 import com.android.hq.ganktoutiao.utils.AppUtils;
 import com.android.hq.ganktoutiao.utils.BackgroundHandler;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
+
 /**
  * Created by heqiang on 16-10-11.
  */
-public class ArticleDetailActivity extends Activity implements View.OnClickListener{
-    private WebView mWebView;
+public class ArticleDetailActivity extends Activity{
+    private Unbinder mUnbinder;
+
+    @BindView(R.id.webview)
+    WebView mWebView;
     private GankDetailData mData;
 
-    private ImageView mBack;
-    private ImageView mMore;
-    private ImageView mFavorite;
-    private ImageView mShare;
-    private TextView mTitle;
-    private TextView mPresenter;
+    @BindView(R.id.menu_back)
+    ImageView mBack;
+    @BindView(R.id.menu_more)
+    ImageView mMore;
+    @BindView(R.id.favorite)
+    ImageView mFavorite;
+    @BindView(R.id.share)
+    ImageView mShare;
+    @BindView(R.id.menu_title)
+    TextView mTitle;
+    @BindView(R.id.presenter)
+    TextView mPresenter;
 
-    private ProgressBar mProgressBar;
+    @BindView(R.id.progress_bar)
+    ProgressBar mProgressBar;
 
     private boolean isFavourite;
 
@@ -46,6 +61,7 @@ public class ArticleDetailActivity extends Activity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_detail);
+        mUnbinder = ButterKnife.bind(this);
 
         initData();
         initViews();
@@ -58,20 +74,7 @@ public class ArticleDetailActivity extends Activity implements View.OnClickListe
     }
 
     private void initViews(){
-        mBack = (ImageView) findViewById(R.id.menu_back);
-        mMore = (ImageView) findViewById(R.id.menu_more);
-        mTitle = (TextView) findViewById(R.id.menu_title);
-        mWebView = (WebView) findViewById(R.id.webview);
-        mPresenter = (TextView) findViewById(R.id.presenter);
-        mFavorite = (ImageView) findViewById(R.id.favorite);
-        mShare = (ImageView) findViewById(R.id.share);
-        mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
-
         mTitle.setText(mData.title);
-        mBack.setOnClickListener(this);
-        mMore.setOnClickListener(this);
-        mFavorite.setOnClickListener(this);
-        mShare.setOnClickListener(this);
         mPresenter.setText(getResources().getString(R.string.text_presenter) + mData.who);
 
         mWebView.getSettings().setJavaScriptEnabled(true);
@@ -118,9 +121,10 @@ public class ArticleDetailActivity extends Activity implements View.OnClickListe
             }
             mWebView.destroy();
         }
+        mUnbinder.unbind();
     }
 
-    @Override
+    @OnClick({R.id.menu_back, R.id.menu_more, R.id.favorite, R.id.share})
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.menu_back:

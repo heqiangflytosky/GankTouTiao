@@ -15,34 +15,32 @@ import com.android.hq.ganktoutiao.ui.activity.AboutMeActivity;
 import com.android.hq.ganktoutiao.ui.activity.FavouriteHistoryActivity;
 import com.android.hq.ganktoutiao.utils.BackgroundHandler;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
+
 /**
  * Created by heqiang on 16-10-13.
  */
-public class AboutFragment extends Fragment implements View.OnClickListener{
+public class AboutFragment extends Fragment{
+    private Unbinder mUnbinder;
 
-    private TextView mTextViewFavPageCounts;
-    private TextView mTextViewReadPageCounts;
+    @BindView(R.id.text_fav_pages)
+    TextView mTextViewFavPageCounts;
+    @BindView(R.id.text_read_history)
+    TextView mTextViewReadPageCounts;
 
-    private View mLayoutFavour;
-    private View mLayoutHistory;
-    private View mLayoutAboutAuthor;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return initViews(inflater);
+        View rootView = initViews(inflater);
+        return rootView;
     }
 
     private View initViews(LayoutInflater inflater){
         View rootView = inflater.inflate(R.layout.fragment_about, null);
-        mTextViewFavPageCounts = (TextView) rootView.findViewById(R.id.text_fav_pages);
-        mTextViewReadPageCounts = (TextView) rootView.findViewById(R.id.text_read_history);
-
-        mLayoutFavour = rootView.findViewById(R.id.layout_favourite);
-        mLayoutHistory = rootView.findViewById(R.id.layout_read_history);
-        mLayoutAboutAuthor = rootView.findViewById(R.id.layout_about_author);
-        mLayoutFavour.setOnClickListener(this);
-        mLayoutHistory.setOnClickListener(this);
-        mLayoutAboutAuthor.setOnClickListener(this);
+        mUnbinder = ButterKnife.bind(this, rootView);
 
         mTextViewFavPageCounts.setText(getResources().getString(R.string.text_read_pages, 0));
         mTextViewReadPageCounts.setText(getResources().getString(R.string.text_read_pages, 0));
@@ -54,6 +52,12 @@ public class AboutFragment extends Fragment implements View.OnClickListener{
         super.onResume();
         updateHistoryCount();
         updateFavouriteCount();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mUnbinder.unbind();
     }
 
     private void updateHistoryCount(){
@@ -90,7 +94,7 @@ public class AboutFragment extends Fragment implements View.OnClickListener{
         });
     }
 
-    @Override
+    @OnClick({R.id.layout_favourite, R.id.layout_read_history, R.id.layout_about_author})
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.layout_favourite:

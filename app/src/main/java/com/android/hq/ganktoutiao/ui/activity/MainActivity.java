@@ -6,7 +6,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,31 +18,47 @@ import com.android.hq.ganktoutiao.ui.fragment.SearchFragment;
 import com.android.hq.ganktoutiao.ui.view.SizeObserverLinearLayout;
 import com.android.hq.ganktoutiao.ui.view.ViewPagerEx;
 
-public class MainActivity extends Activity implements View.OnClickListener{
+import butterknife.BindColor;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
+
+public class MainActivity extends Activity{
 
     private SizeObserverLinearLayout mRootView;
     private ViewPagerEx mViewPager;
     private PagerAdapter mPagerAdapter;
     private ViewGroup mToolBar;
-    private View mHome;
-    private View mPage2;
-    private View mPage3;
-    private View mPage4;
+    private Unbinder mUnbinder;
 
-    private ImageView mHomeImg;
-    private ImageView mPage2Img;
-    private ImageView mPage3Img;
-    private ImageView mPage4Img;
+    @BindView(R.id.home_img)
+    ImageView mHomeImg;
+    @BindView(R.id.search_img)
+    ImageView mSearchImg;
+    @BindView(R.id.present_img)
+    ImageView mPresentImg;
+    @BindView(R.id.about_img)
+    ImageView mAboutImg;
 
-    private TextView mHomeTv;
-    private TextView mPage2Tv;
-    private TextView mPage3Tv;
-    private TextView mPage4Tv;
+    @BindView(R.id.home_tv)
+    TextView mHomeTv;
+    @BindView(R.id.search_tv)
+    TextView mSearchTv;
+    @BindView(R.id.present_tv)
+    TextView mPresentTv;
+    @BindView(R.id.about_tv)
+    TextView mAboutTv;
 
+    @BindColor(R.color.main_page_toolbar_select_text_color)
+    int mToolBarSelectColor;
+    @BindColor(R.color.main_page_toolbar_unselect_text_color)
+    int mToolBarUnSelectColor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mUnbinder = ButterKnife.bind(this);
         initView();
     }
 
@@ -62,31 +77,11 @@ public class MainActivity extends Activity implements View.OnClickListener{
         mPagerAdapter.addPage(PresentFragment.class, null);
         mPagerAdapter.addPage(AboutFragment.class, null);
 
-        mHome = findViewById(R.id.page1);
-        mPage2 = findViewById(R.id.page2);
-        mPage3 = findViewById(R.id.page3);
-        mPage4 = findViewById(R.id.page4);
-
-        mHome.setOnClickListener(this);
-        mPage2.setOnClickListener(this);
-        mPage3.setOnClickListener(this);
-        mPage4.setOnClickListener(this);
-
-        mHomeImg = (ImageView) mToolBar.findViewById(R.id.home_img);
-        mPage2Img = (ImageView) mToolBar.findViewById(R.id.page2_img);
-        mPage3Img = (ImageView) mToolBar.findViewById(R.id.page3_img);
-        mPage4Img = (ImageView) mToolBar.findViewById(R.id.page4_img);
-
-        mHomeTv = (TextView) mToolBar.findViewById(R.id.home_tv);
-        mPage2Tv = (TextView) mToolBar.findViewById(R.id.page2_tv);
-        mPage3Tv = (TextView) mToolBar.findViewById(R.id.page3_tv);
-        mPage4Tv = (TextView) mToolBar.findViewById(R.id.page4_tv);
-
         resetButton();
 
         mViewPager.setCurrentItem(0);
         mHomeImg.setImageResource(R.drawable.tab_home);
-        mHomeTv.setTextColor(0xff508aeb);
+        mHomeTv.setTextColor(mToolBarSelectColor);
 
         mRootView.setOnSizeChangeListener(new SizeObserverLinearLayout.OnSizeWillChangeListener() {
             @Override
@@ -124,42 +119,48 @@ public class MainActivity extends Activity implements View.OnClickListener{
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
+    @OnClick({R.id.page1,R.id.search,R.id.present,R.id.about})
     public void onClick(View view) {
         resetButton();
         switch (view.getId()){
             case R.id.page1:
                 mViewPager.setCurrentItem(0);
                 mHomeImg.setImageResource(R.drawable.tab_home);
-                mHomeTv.setTextColor(0xff508aeb);
+                mHomeTv.setTextColor(mToolBarSelectColor);
                 break;
-            case R.id.page2:
+            case R.id.search:
                 mViewPager.setCurrentItem(1);
-                mPage2Img.setImageResource(R.drawable.tab_explore);
-                mPage2Tv.setTextColor(0xff508aeb);
+                mSearchImg.setImageResource(R.drawable.tab_explore);
+                mSearchTv.setTextColor(mToolBarSelectColor);
                 break;
-            case R.id.page3:
+            case R.id.present:
                 mViewPager.setCurrentItem(2);
-                mPage3Img.setImageResource(R.drawable.tab_recommend);
-                mPage3Tv.setTextColor(0xff508aeb);
+                mPresentImg.setImageResource(R.drawable.tab_recommend);
+                mPresentTv.setTextColor(mToolBarSelectColor);
                 break;
-            case R.id.page4:
+            case R.id.about:
                 mViewPager.setCurrentItem(3);
-                mPage4Img.setImageResource(R.drawable.tab_profile);
-                mPage4Tv.setTextColor(0xff508aeb);
+                mAboutImg.setImageResource(R.drawable.tab_profile);
+                mAboutTv.setTextColor(mToolBarSelectColor);
                 break;
         }
     }
 
     private void resetButton(){
         mHomeImg.setImageResource(R.drawable.tab_home_normal);
-        mPage2Img.setImageResource(R.drawable.tab_explore_normal);
-        mPage3Img.setImageResource(R.drawable.tab_recommend_normal);
-        mPage4Img.setImageResource(R.drawable.tab_profile_normal);
+        mSearchImg.setImageResource(R.drawable.tab_explore_normal);
+        mPresentImg.setImageResource(R.drawable.tab_recommend_normal);
+        mAboutImg.setImageResource(R.drawable.tab_profile_normal);
 
-        mHomeTv.setTextColor(0xffc8cbd4);
-        mPage2Tv.setTextColor(0xffc8cbd4);
-        mPage3Tv.setTextColor(0xffc8cbd4);
-        mPage4Tv.setTextColor(0xffc8cbd4);
+        mHomeTv.setTextColor(mToolBarUnSelectColor);
+        mSearchTv.setTextColor(mToolBarUnSelectColor);
+        mPresentTv.setTextColor(mToolBarUnSelectColor);
+        mAboutTv.setTextColor(mToolBarUnSelectColor);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mUnbinder.unbind();
     }
 }

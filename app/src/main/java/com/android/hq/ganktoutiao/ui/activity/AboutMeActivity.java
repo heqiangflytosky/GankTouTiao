@@ -7,17 +7,30 @@ import android.widget.TextView;
 
 import com.android.hq.ganktoutiao.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 /**
  * Created by heqiang on 16-10-18.
  */
 public class AboutMeActivity extends Activity {
-    private TextView mTitle;
+    private Unbinder mUnbinder;
+
+    @BindView(R.id.menu_title)
+    TextView mTitle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_me);
-        mTitle = (TextView) findViewById(R.id.menu_title);
+        mUnbinder = ButterKnife.bind(this);
         mTitle.setText(getString(R.string.activity_title_about_me));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mUnbinder.unbind();
     }
 
     public void onBackClick(View v){

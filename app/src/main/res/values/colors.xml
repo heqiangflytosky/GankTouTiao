@@ -38,4 +38,7 @@
     <color name="webview_progress_start_color">#00BB00</color>
     <color name="webview_progress_center_color">#009100</color>
     <color name="webview_progress_end_color">#006000</color>
+
+    <color name="main_page_toolbar_select_text_color">@color/dodgerblue</color>
+    <color name="main_page_toolbar_unselect_text_color">#ffc8cbd4</color>
 </resources>
