@@ -15,6 +15,22 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+-ignorewarnings
+
+-keep class com.alibaba.fastjson.** {*;}
+-dontwarn com.alibaba.fastjson.**
+
+-keep class com.android.hq.ganktoutiao.data.** {*;}
+
+# Fixed: Caused by: java.lang.NoSuchFieldException: No field producerIndex
+ -keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
+     long producerIndex;
+     long consumerIndex;
+ }
+ -keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
+     long producerNode;
+     long consumerNode;
+}
 
 -keep class butterknife.** { *; }
 -dontwarn butterknife.internal.**
