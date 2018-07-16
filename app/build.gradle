@@ -4,6 +4,21 @@ android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
 
+    signingConfigs {
+        debug {
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storeFile file('keystore/debug.keystore')
+            storePassword 'android'
+        }
+        release {
+            keyAlias '*'
+            keyPassword '*'
+            storeFile file('keystore/release.jks')
+            storePassword '*'
+        }
+    }
+
     defaultConfig {
         applicationId "com.android.hq.ganktoutiao"
         minSdkVersion 21
@@ -15,17 +30,10 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
         }
     }
-    signingConfigs {
-        debug {
-            keyAlias 'androiddebugkey'
-            keyPassword 'android'
-            storeFile file('keystore/debug.keystore')
-            storePassword 'android'
-        }
-    }
+
     lintOptions {
         checkReleaseBuilds false
         abortOnError false
