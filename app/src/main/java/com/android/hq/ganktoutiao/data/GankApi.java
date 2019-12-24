@@ -6,5 +6,6 @@ package com.android.hq.ganktoutiao.data;
 public class GankApi {
     public static final String GANK_BASE_URL = "http://gank.io/api/";
     public static final String GANK_DAY_HISTORY = "day/history";
+    public static final String GANK_TODAY = "today";
     public static final String GANK_SEARCH_URL = "http://gank.io/api/search/query";
 }

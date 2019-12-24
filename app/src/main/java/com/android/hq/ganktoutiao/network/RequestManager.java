@@ -92,6 +92,28 @@ public class RequestManager {
     }
 
     public void getDailyData(final CallBack<DailyDataResponse> callback){
+        mGankService.getToadyData()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<DailyDataResponse>() {
+                    @Override
+                    public void onCompleted() {
+                        Log.d(TAG, "getDailyData onCompleted");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        callback.onFail();
+                        Log.e(TAG, "getDailyData onError");
+                    }
+
+                    @Override
+                    public void onNext(DailyDataResponse dailyDataResponse) {
+                        callback.onSuccess(dailyDataResponse);
+                        Log.d(TAG, "getDailyData onNext");
+                    }
+                });
+        /*
         mGankService.getDayHistory()
                 .filter(new Func1<DayHistoryResponse, Boolean>() {
 
@@ -150,6 +172,7 @@ public class RequestManager {
                         Log.d(TAG, "getDailyData onNext");
                     }
                 });
+                */
     }
 
     public void getGankData(String category, int pageCount, int page, final CallBack<GankDataResponse> callback){

@@ -25,6 +25,9 @@ public interface GankService {
     @GET(GankApi.GANK_DAY_HISTORY)
     Observable<DayHistoryResponse> getDayHistory();
 
+    @GET(GankApi.GANK_TODAY)
+    Observable<DailyDataResponse> getToadyData();
+
     @GET("data/{category}/{pageCount}/{page}")
     Observable<GankDataResponse> getGankData(
             @Path("category") String category, @Path("pageCount") int pageCount, @Path("page") int page);
