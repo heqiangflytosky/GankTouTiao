@@ -1,5 +1,8 @@
 package com.android.hq.ganktoutiao.ui.fragment;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+
 import com.android.hq.ganktoutiao.data.GankContentItem;
 import com.android.hq.ganktoutiao.data.GankItem;
 import com.android.hq.ganktoutiao.data.bean.GankDataResponse;
@@ -12,9 +15,18 @@ import java.util.ArrayList;
 /**
  * Created by heqiang on 16-9-2.
  */
-public abstract class GankListFragment extends BaseFragment {
+public class GankListFragment extends BaseFragment {
 
+    public static final String TYPE = "type";
     private int mCurrentPage = 0;
+    private String mType;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle bundle = getArguments();
+        mType = bundle != null ? bundle.getString(TYPE) : null;
+    }
 
     @Override
     public void updateData(){
@@ -81,5 +93,7 @@ public abstract class GankListFragment extends BaseFragment {
         return true;
     }
 
-    public abstract String getType();
+    public String getType() {
+        return mType;
+    }
 }
