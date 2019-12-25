@@ -72,10 +72,10 @@ public class MainActivity extends Activity{
         mViewPager.setCanScroll(false);
         mViewPager.setOffscreenPageLimit(3);
 
-        mPagerAdapter.addPage(MainFragment.class, null);
-        mPagerAdapter.addPage(SearchFragment.class, null);
-        mPagerAdapter.addPage(PresentFragment.class, null);
-        mPagerAdapter.addPage(AboutFragment.class, null);
+        mPagerAdapter.addPage(new MainFragment());
+        mPagerAdapter.addPage(new SearchFragment());
+        mPagerAdapter.addPage(new PresentFragment());
+        mPagerAdapter.addPage(new AboutFragment());
 
         resetButton();
 

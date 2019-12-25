@@ -5,21 +5,36 @@ import android.support.annotation.Nullable;
 
 import com.android.hq.ganktoutiao.data.GankContentItem;
 import com.android.hq.ganktoutiao.data.GankItem;
+import com.android.hq.ganktoutiao.data.GankType;
 import com.android.hq.ganktoutiao.data.bean.GankDataResponse;
 import com.android.hq.ganktoutiao.data.bean.GankItemBean;
+import com.android.hq.ganktoutiao.mvp.BasePresenter;
+import com.android.hq.ganktoutiao.mvp.GankListContract;
+import com.android.hq.ganktoutiao.mvp.GankListPresenter;
 import com.android.hq.ganktoutiao.network.CallBack;
 import com.android.hq.ganktoutiao.network.RequestManager;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by heqiang on 16-9-2.
  */
-public class GankListFragment extends BaseFragment {
+public class GankListFragment extends BaseFragment implements GankListContract.View {
 
     public static final String TYPE = "type";
     private int mCurrentPage = 0;
     private String mType;
+    private GankListContract.Presenter mPresenter;
+
+    public static GankListFragment newInstance(String type) {
+        Bundle bundle = new Bundle();
+        bundle.putString(GankListFragment.TYPE, type);
+        GankListFragment fragment = new GankListFragment();
+        fragment.setArguments(bundle);
+        new GankListPresenter(fragment);
+        return fragment;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,53 +44,26 @@ public class GankListFragment extends BaseFragment {
     }
 
     @Override
-    public void updateData(){
-        RequestManager.getInstance().getGankData(getType(), 20, 1, new CallBack<GankDataResponse>() {
-            @Override
-            public void onSuccess(GankDataResponse gankDataResponse) {
-                mRefreshLayout.setRefreshing(false);
-                ArrayList<GankItem> list  = new ArrayList<GankItem>();
-                if(gankDataResponse != null && gankDataResponse.results != null){
-                    for (GankItemBean bean : gankDataResponse.results){
-                        list.add(new GankContentItem(bean));
-                    }
-                }
-                mAdapter.updateData(list);
-                mCurrentPage = 1;
-                updateSuccess(list.isEmpty());
-            }
+    public void onResume() {
+        super.onResume();
+        mPresenter.subscribe();
+    }
 
-            @Override
-            public void onFail() {
-                mRefreshLayout.setRefreshing(false);
-                updateError();
-            }
-        });
+    @Override
+    public void onPause() {
+        super.onPause();
+        mPresenter.unsubscribe();
+    }
+
+    @Override
+    public void updateData() {
+        mPresenter.loadData(getType());
     }
 
     @Override
     public void loadMore(){
         mAdapter.onLoadMore();
-        RequestManager.getInstance().getGankData(getType(), 20,++mCurrentPage, new CallBack<GankDataResponse>() {
-            @Override
-            public void onSuccess(GankDataResponse gankDataResponse) {
-                ArrayList<GankItem> list = new ArrayList<GankItem>();
-                if (gankDataResponse != null && gankDataResponse.results != null) {
-                    for (GankItemBean bean : gankDataResponse.results) {
-                        list.add(new GankContentItem(bean));
-                    }
-                }
-                mAdapter.loadMoreData(list);
-                loadMoreSuccess(list.isEmpty());
-            }
-
-            @Override
-            public void onFail() {
-                mCurrentPage--;
-                mAdapter.loadMoreData(null);
-                loadMoreError();
-            }
-        });
+        mPresenter.loadMore(getType(), ++mCurrentPage);
     }
 
     @Override
@@ -91,6 +79,35 @@ public class GankListFragment extends BaseFragment {
     @Override
     public boolean isEnableRefreshOnViewCreate() {
         return true;
+    }
+
+    @Override
+    public void setRefreshing(boolean refreshing) {
+        mRefreshLayout.setRefreshing(refreshing);
+    }
+
+    @Override
+    public void setPresenter(GankListContract.Presenter presenter) {
+        mPresenter = presenter;
+    }
+
+    @Override
+    public void updateData(List<GankItem> list) {
+        mAdapter.updateData(list);
+        mCurrentPage = 1;
+    }
+
+    @Override
+    public void updateLoadMoreError() {
+        mCurrentPage--;
+        mAdapter.loadMoreData(null);
+        loadMoreError();
+    }
+
+    @Override
+    public void updateMoreData(List<GankItem> list) {
+        mAdapter.loadMoreData(list);
+        loadMoreSuccess(list.isEmpty());
     }
 
     public String getType() {

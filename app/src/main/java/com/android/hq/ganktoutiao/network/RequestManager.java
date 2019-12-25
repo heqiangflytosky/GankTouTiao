@@ -5,7 +5,6 @@ import android.util.Log;
 import com.android.hq.ganktoutiao.data.GankApi;
 import com.android.hq.ganktoutiao.data.bean.AddToGankResponse;
 import com.android.hq.ganktoutiao.data.bean.DailyDataResponse;
-import com.android.hq.ganktoutiao.data.bean.DayHistoryResponse;
 import com.android.hq.ganktoutiao.data.bean.GankDataResponse;
 import com.android.hq.ganktoutiao.data.bean.SearchDataResponse;
 import com.android.hq.ganktoutiao.utils.AppUtils;
@@ -15,25 +14,21 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Locale;
 
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.Cache;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Observable;
-import rx.Observer;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by heqiang on 16-9-6.
@@ -76,7 +71,7 @@ public class RequestManager {
                 .client(client)
                 .baseUrl(GankApi.GANK_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
         mGankService = retrofit.create(GankService.class);
     }
@@ -97,7 +92,12 @@ public class RequestManager {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<DailyDataResponse>() {
                     @Override
-                    public void onCompleted() {
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
                         Log.d(TAG, "getDailyData onCompleted");
                     }
 
@@ -181,7 +181,12 @@ public class RequestManager {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<GankDataResponse>() {
                     @Override
-                    public void onCompleted() {
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
 
                     }
 
@@ -203,7 +208,12 @@ public class RequestManager {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<SearchDataResponse>() {
                     @Override
-                    public void onCompleted() {
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
 
                     }
 
@@ -234,7 +244,12 @@ public class RequestManager {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<AddToGankResponse>() {
                     @Override
-                    public void onCompleted() {
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
 
                     }
 

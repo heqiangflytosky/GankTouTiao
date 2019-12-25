@@ -49,6 +49,7 @@ public abstract class BaseFragment extends Fragment {
 
     private boolean mCanLoadingMore = true;
     private long mShowLoadMoreTipsTime;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -109,6 +110,12 @@ public abstract class BaseFragment extends Fragment {
 
     public void updateError(){
         updateState(STATE_UPDATE_ERROR);
+    }
+
+    public void startLoadMore() {
+        loadMore();
+        mLoadingMore = true;
+
     }
 
     public void loadMoreSuccess(boolean isEmpty){
@@ -180,14 +187,14 @@ public abstract class BaseFragment extends Fragment {
         @Override
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
-            if(!mCanLoadingMore)
+            if(!mCanLoadingMore) {
                 return;
+            }
             boolean isScrollUp = dy > 0 ? true : false;
             int totalItemCount = mLinearLayoutManager.getItemCount();
             int lastVisibleItemPosition = mLinearLayoutManager.findLastCompletelyVisibleItemPosition();
             if(!mLoadingMore && isScrollUp && lastVisibleItemPosition >=totalItemCount -1){
-                loadMore();
-                mLoadingMore = true;
+                startLoadMore();
             }
         }
     };

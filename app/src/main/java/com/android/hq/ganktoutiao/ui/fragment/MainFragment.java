@@ -55,22 +55,17 @@ public class MainFragment extends Fragment {
     }
 
     private void addPages(){
-        mPagerAdapter.addPage(GankDailyFragment.class,null);
-        Bundle bundleAndroid = new Bundle();
-        bundleAndroid.putString(GankListFragment.TYPE, GankType.TYPE_ANDROID);
-        mPagerAdapter.addPage(GankListFragment.class,bundleAndroid);
-        Bundle bundleIOS = new Bundle();
-        bundleIOS.putString(GankListFragment.TYPE, GankType.TYPE_IOS);
-        mPagerAdapter.addPage(GankListFragment.class,bundleIOS);
-        Bundle bundleWeb = new Bundle();
-        bundleWeb.putString(GankListFragment.TYPE, GankType.TYPE_WEB);
-        mPagerAdapter.addPage(GankListFragment.class,bundleWeb);
-        Bundle bundleApp = new Bundle();
-        bundleApp.putString(GankListFragment.TYPE, GankType.TYPE_APP);
-        mPagerAdapter.addPage(GankListFragment.class,bundleApp);
-        Bundle bundleRes = new Bundle();
-        bundleRes.putString(GankListFragment.TYPE, GankType.TYPE_EXPAND_RES);
-        mPagerAdapter.addPage(GankListFragment.class,bundleRes);
+        mPagerAdapter.addPage(new GankDailyFragment());
+
+        mPagerAdapter.addPage(GankListFragment.newInstance(GankType.TYPE_ANDROID));
+
+        mPagerAdapter.addPage(GankListFragment.newInstance(GankType.TYPE_IOS));
+
+        mPagerAdapter.addPage(GankListFragment.newInstance(GankType.TYPE_WEB));
+
+        mPagerAdapter.addPage(GankListFragment.newInstance(GankType.TYPE_APP));
+
+        mPagerAdapter.addPage(GankListFragment.newInstance(GankType.TYPE_EXPAND_RES));
     }
 
     private void addTabs(){

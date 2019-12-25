@@ -21,23 +21,18 @@ public class PagerAdapter extends FragmentPagerAdapter {
     }
 
     public static class PageInfo{
-        private final Class<?> clss;
         private String tag;
         private Fragment fragment;
-        private final Bundle args;
 
-        public PageInfo(Class<?> _clss, Bundle _args){
-            clss = _clss;
-            args = _args;
+        public PageInfo(Fragment fragment){
+            this.fragment = fragment;
         }
     }
 
     @Override
     public Fragment getItem(int position) {
         PageInfo info = mTabs.get(position);
-        Fragment fragment = Fragment.instantiate(mContext, info.clss.getName(), info.args);
-        info.fragment = fragment;
-        return fragment;
+        return info.fragment;
     }
 
     @Override
@@ -45,8 +40,8 @@ public class PagerAdapter extends FragmentPagerAdapter {
         return mTabs.size();
     }
 
-    public void addPage(Class<?> clss, Bundle args){
-        PageInfo info = new PageInfo(clss, args);
+    public void addPage(Fragment fragment){
+        PageInfo info = new PageInfo(fragment);
         mTabs.add(info);
         notifyDataSetChanged();
     }

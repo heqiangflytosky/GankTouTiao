@@ -14,7 +14,6 @@ import com.android.hq.ganktoutiao.network.CallBack;
 import com.android.hq.ganktoutiao.network.RequestManager;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
