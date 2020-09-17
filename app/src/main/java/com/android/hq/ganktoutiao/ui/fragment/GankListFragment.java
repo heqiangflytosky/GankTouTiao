@@ -1,20 +1,12 @@
 package com.android.hq.ganktoutiao.ui.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
-import com.android.hq.ganktoutiao.data.GankContentItem;
 import com.android.hq.ganktoutiao.data.GankItem;
-import com.android.hq.ganktoutiao.data.GankType;
-import com.android.hq.ganktoutiao.data.bean.GankDataResponse;
-import com.android.hq.ganktoutiao.data.bean.GankItemBean;
-import com.android.hq.ganktoutiao.mvp.BasePresenter;
 import com.android.hq.ganktoutiao.mvp.GankListContract;
 import com.android.hq.ganktoutiao.mvp.GankListPresenter;
-import com.android.hq.ganktoutiao.network.CallBack;
-import com.android.hq.ganktoutiao.network.RequestManager;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

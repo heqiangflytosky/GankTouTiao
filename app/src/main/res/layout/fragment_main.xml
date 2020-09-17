@@ -6,7 +6,7 @@
               tools:context=".MainActivityFragment"
               android:orientation="vertical">
 
-    <android.support.design.widget.TabLayout
+    <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="@dimen/tool_bar_top_height"
@@ -18,7 +18,7 @@
         app:tabIndicatorColor="@color/tab_bottom_line_color"
         app:tabSelectedTextColor="@color/tab_text_color"
         app:tabTextColor="@color/tab_text_color_selected"/>
-    <android.support.v4.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"

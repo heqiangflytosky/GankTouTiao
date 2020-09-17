@@ -35,7 +35,7 @@
     <string name="text_submit">提交</string>
 
     <string name="page_title_me">我</string>
-    <string name="text_present">我要推荐</string>
+    <string name="page_title_present">我要推荐</string>
 
     <string name="tips_cannot_empty">%1$s 不能为空</string>
     <string name="title_address">网址</string>

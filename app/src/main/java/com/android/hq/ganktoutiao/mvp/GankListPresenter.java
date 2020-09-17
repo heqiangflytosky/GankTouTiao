@@ -1,6 +1,6 @@
 package com.android.hq.ganktoutiao.mvp;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.android.hq.ganktoutiao.data.GankContentItem;
 import com.android.hq.ganktoutiao.data.GankItem;

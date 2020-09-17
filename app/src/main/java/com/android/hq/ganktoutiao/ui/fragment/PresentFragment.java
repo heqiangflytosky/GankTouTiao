@@ -2,12 +2,11 @@ package com.android.hq.ganktoutiao.ui.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputLayout;
+import androidx.annotation.Nullable;
+import com.google.android.material.textfield.TextInputLayout;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,8 +20,6 @@ import com.android.hq.ganktoutiao.R;
 import com.android.hq.ganktoutiao.data.bean.AddToGankResponse;
 import com.android.hq.ganktoutiao.network.CallBack;
 import com.android.hq.ganktoutiao.network.RequestManager;
-
-import org.w3c.dom.Text;
 
 /**
  * Created by heqiang on 16-10-13.

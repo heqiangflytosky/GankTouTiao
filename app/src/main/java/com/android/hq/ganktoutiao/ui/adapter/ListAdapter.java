@@ -1,8 +1,8 @@
 package com.android.hq.ganktoutiao.ui.adapter;
 
 import android.app.Fragment;
-import android.os.SystemClock;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;

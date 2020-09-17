@@ -14,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:text="@string/text_present"
+            android:text="@string/page_title_present"
             style="@style/ToolBarTopTitleTextAppearance"/>
     </LinearLayout>
     <RelativeLayout
@@ -23,7 +23,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp">
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_address"
             android:layout_width="match_parent"
             android:layout_height="@dimen/layout_height_present_item"
@@ -38,9 +38,9 @@
                 android:singleLine="true"
                 android:textSize="@dimen/text_size_present_edit"/>
 
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_title"
             android:layout_width="match_parent"
             android:layout_height="@dimen/layout_height_present_item"
@@ -55,9 +55,9 @@
                 android:singleLine="true"
                 android:textSize="@dimen/text_size_present_edit"/>
 
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_present_id"
             android:layout_width="match_parent"
             android:layout_height="@dimen/layout_height_present_item"
@@ -72,7 +72,7 @@
                 android:singleLine="true"
                 android:textSize="@dimen/text_size_present_edit"/>
 
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
             android:id="@+id/layout_gank_type"

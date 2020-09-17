@@ -3,8 +3,8 @@ package com.android.hq.ganktoutiao.ui.adapter;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
-import android.os.Bundle;
-import android.support.v13.app.FragmentPagerAdapter;
+
+import androidx.legacy.app.FragmentPagerAdapter;
 
 import java.util.ArrayList;
 
