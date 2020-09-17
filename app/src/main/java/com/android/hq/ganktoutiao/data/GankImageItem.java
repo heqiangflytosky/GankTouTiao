@@ -14,10 +14,12 @@ public class GankImageItem extends GankItemBean implements GankItem {
     }
     @Override
     public boolean equals(Object o) {
-        if(this == o)
+        if(this == o) {
             return true;
-        if(o == null || this.getClass() != o.getClass())
+        }
+        if(o == null || this.getClass() != o.getClass()) {
             return false;
+        }
         GankImageItem item = (GankImageItem) o;
         return item.imageUrl.equals(this.imageUrl);
     }

@@ -89,11 +89,13 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             final GankContentItem item = (GankContentItem) mList.get(position);
             contentViewHolder.mTitle.setText(item.desc);
             String who = item.who;
-            if(!TextUtils.isEmpty(who))
+            if(!TextUtils.isEmpty(who)) {
                 contentViewHolder.mFrom.setText(who);
+            }
             String time = AppUtils.formatPublishedTime(item.publishedAt);
-            if(!TextUtils.isEmpty(time))
+            if(!TextUtils.isEmpty(time)) {
                 contentViewHolder.mTime.setText(time);
+            }
 
             contentViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -140,11 +142,13 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             final GankSearchItem item = (GankSearchItem) mList.get(position);
             contentViewHolder.mTitle.setText(item.desc);
             String who = item.who;
-            if(!TextUtils.isEmpty(who))
+            if(!TextUtils.isEmpty(who)) {
                 contentViewHolder.mFrom.setText(who);
+            }
             String time = AppUtils.formatPublishedTime(item.publishedAt);
-            if(!TextUtils.isEmpty(time))
+            if(!TextUtils.isEmpty(time)) {
                 contentViewHolder.mTime.setText(time);
+            }
             contentViewHolder.mType.setText(item.type);
 
             contentViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -159,11 +163,13 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             final HistoryFavItem item = (HistoryFavItem) mList.get(position);
             contentViewHolder.mTitle.setText(item.title);
             String who = item.who;
-            if(!TextUtils.isEmpty(who))
+            if(!TextUtils.isEmpty(who)) {
                 contentViewHolder.mFrom.setText(who);
+            }
             String time = AppUtils.formatPublishedTime(item.published_date);
-            if(!TextUtils.isEmpty(time))
+            if(!TextUtils.isEmpty(time)) {
                 contentViewHolder.mTime.setText(time);
+            }
             contentViewHolder.mType.setText(item.gank_type);
 
             contentViewHolder.itemView.setOnClickListener(new View.OnClickListener() {

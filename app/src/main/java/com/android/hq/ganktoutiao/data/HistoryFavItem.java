@@ -18,10 +18,12 @@ public class HistoryFavItem extends GankDetailData implements GankItem {
 
     @Override
     public boolean equals(Object o) {
-        if(this == o)
+        if(this == o) {
             return true;
-        if(o == null || this.getClass() != o.getClass())
+        }
+        if(o == null || this.getClass() != o.getClass()) {
             return false;
+        }
         HistoryFavItem item = (HistoryFavItem) o;
         return item.gank_id.equals(this.gank_id) && item.gank_type.equals(this.gank_type);
     }
