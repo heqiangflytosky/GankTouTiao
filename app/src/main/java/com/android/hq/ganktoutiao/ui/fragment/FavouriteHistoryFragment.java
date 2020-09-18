@@ -106,6 +106,9 @@ public class FavouriteHistoryFragment extends BaseFragment implements LoaderMana
                     }
                 };
                 return favouritesLoader;
+
+             default:
+                break;
         }
         return null;
     }

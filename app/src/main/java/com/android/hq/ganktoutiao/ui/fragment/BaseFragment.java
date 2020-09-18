@@ -155,7 +155,7 @@ public abstract class BaseFragment extends Fragment {
                 break;
             case STATE_NETWORK_ERROR:
                 //showEmpty = true;
-                //title = getString(R.string.empty_view_network_error);
+                //name = getString(R.string.empty_view_network_error);
                 break;
             case STATE_FAVOURITE_EMPTY:
             case STATE_HISTORY_EMPTY:

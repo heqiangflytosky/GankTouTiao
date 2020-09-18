@@ -120,6 +120,7 @@ public class GankProviderHelper {
                             c.getString(c.getColumnIndex(GankSQLiteOpenHelper.HistoryTab.GANK_URL)),
                             c.getString(c.getColumnIndex(GankSQLiteOpenHelper.HistoryTab.GANK_WHO)),
                             c.getString(c.getColumnIndex(GankSQLiteOpenHelper.HistoryTab.GANK_TITLE)),
+                            c.getString(c.getColumnIndex(GankSQLiteOpenHelper.HistoryTab.GANK_DESC)),
                             c.getString(c.getColumnIndex(GankSQLiteOpenHelper.HistoryTab.GANK_PUBLISED_DATE)),
                             Long.valueOf(c.getString(c.getColumnIndex(GankSQLiteOpenHelper.HistoryTab.GANK_READ_DATE))));
                     dataList.add(data);
@@ -228,6 +229,7 @@ public class GankProviderHelper {
                             c.getString(c.getColumnIndex(GankSQLiteOpenHelper.FavouriteTab.GANK_URL)),
                             c.getString(c.getColumnIndex(GankSQLiteOpenHelper.FavouriteTab.GANK_WHO)),
                             c.getString(c.getColumnIndex(GankSQLiteOpenHelper.FavouriteTab.GANK_TITLE)),
+                            c.getString(c.getColumnIndex(GankSQLiteOpenHelper.FavouriteTab.GANK_DESC)),
                             c.getString(c.getColumnIndex(GankSQLiteOpenHelper.FavouriteTab.GANK_PUBLISED_DATE)),
                             Long.valueOf(c.getString(c.getColumnIndex(GankSQLiteOpenHelper.FavouriteTab.GANK_COLLECT_DATE))));
                     dataList.add(data);

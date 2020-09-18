@@ -2,12 +2,14 @@ package com.android.hq.ganktoutiao.network;
 
 import android.util.Log;
 
+import com.android.hq.ganktoutiao.BuildConfig;
 import com.android.hq.ganktoutiao.data.GankApi;
 import com.android.hq.ganktoutiao.data.bean.AddToGankResponse;
 import com.android.hq.ganktoutiao.data.bean.DailyDataResponse;
 import com.android.hq.ganktoutiao.data.bean.GankDataResponse;
 import com.android.hq.ganktoutiao.data.bean.SearchDataResponse;
 import com.android.hq.ganktoutiao.utils.AppUtils;
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 
 import java.io.File;
@@ -61,10 +63,13 @@ public class RequestManager {
         };
 
         File cacheDirectory = new File(AppUtils.getCacheDir(), "responses");
-        OkHttpClient client = new OkHttpClient.Builder()
-                .cache(new Cache(cacheDirectory, CACHE_SIZE))
-                .addNetworkInterceptor(interceptor)
-                .build();
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+                //.cache(new Cache(cacheDirectory, CACHE_SIZE))
+                //.addNetworkInterceptor(interceptor);
+        if (BuildConfig.DEBUG) {
+            builder.addNetworkInterceptor(new StethoInterceptor());
+        }
+        OkHttpClient client = builder.build();
         //client.setConnectTimeout(2000, TimeUnit.MILLISECONDS);
 
         Retrofit retrofit = new Retrofit.Builder()

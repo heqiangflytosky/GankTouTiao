@@ -126,7 +126,7 @@ public class SearchFragment extends BaseFragment {
                 mRefreshLayout.setRefreshing(false);
                 List<GankItem> list = new ArrayList<GankItem>();
                 if(gankDataResponse != null){
-                    ArrayList<GankSearchItemBean> dataList = gankDataResponse.results;
+                    ArrayList<GankSearchItemBean> dataList = gankDataResponse.data;
                     if(dataList != null && dataList.size() != 0){
                         for(GankSearchItemBean bean : dataList){
                             list.add(new GankSearchItem(bean));

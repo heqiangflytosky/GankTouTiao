@@ -41,8 +41,8 @@ public class GankListPresenter implements GankListContract.Presenter {
             public void onSuccess(GankDataResponse gankDataResponse) {
                 mView.setRefreshing(false);
                 ArrayList<GankItem> list  = new ArrayList<GankItem>();
-                if(gankDataResponse != null && gankDataResponse.results != null){
-                    for (GankItemBean bean : gankDataResponse.results){
+                if(gankDataResponse != null && gankDataResponse.data != null){
+                    for (GankItemBean bean : gankDataResponse.data){
                         list.add(new GankContentItem(bean));
                     }
                 }
@@ -64,8 +64,8 @@ public class GankListPresenter implements GankListContract.Presenter {
             @Override
             public void onSuccess(GankDataResponse gankDataResponse) {
                 ArrayList<GankItem> list = new ArrayList<GankItem>();
-                if (gankDataResponse != null && gankDataResponse.results != null) {
-                    for (GankItemBean bean : gankDataResponse.results) {
+                if (gankDataResponse != null && gankDataResponse.data != null) {
+                    for (GankItemBean bean : gankDataResponse.data) {
                         list.add(new GankContentItem(bean));
                     }
                 }

@@ -41,6 +41,7 @@ public class AppUtils {
     private static Context mAppContext;
     private static SimpleDateFormat sDataFormatZ = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
     private static SimpleDateFormat sDataFormat6S = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS");
+    private static SimpleDateFormat sDataFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public static final String TYPE_WIFI = "wifi";
     public static final String TYPE_2G = "2g";
@@ -84,8 +85,8 @@ public class AppUtils {
                 c = sDataFormatZ.getCalendar();
             }
             else {
-                sDataFormat6S.parse(time);
-                c = sDataFormat6S.getCalendar();
+                sDataFormat.parse(time);
+                c = sDataFormat.getCalendar();
             }
         } catch (ParseException e) {
             e.printStackTrace();

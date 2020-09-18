@@ -11,6 +11,7 @@ public class HistoryFavItem extends GankDetailData implements GankItem {
         this.gank_type = data.gank_type;
         this.published_date = data.published_date;
         this.title = data.title;
+        this.desc = data.desc;
         this.url = data.url;
         this.who = data.who;
         this.action_date = data.action_date;

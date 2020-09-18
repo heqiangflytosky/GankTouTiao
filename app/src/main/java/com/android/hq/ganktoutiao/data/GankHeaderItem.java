@@ -8,9 +8,9 @@ import java.util.Objects;
  * Created by heqiang on 16-9-22.
  */
 public class GankHeaderItem extends GankItemBean implements GankItem {
-    public String title;
+    public String name;
     public GankHeaderItem (String title){
-        this.title = title;
+        this.name = title;
     }
     @Override
     public boolean equals(Object o) {
@@ -19,11 +19,11 @@ public class GankHeaderItem extends GankItemBean implements GankItem {
         if(o == null || this.getClass() != o.getClass())
             return false;
         GankHeaderItem item = (GankHeaderItem) o;
-        return item.title.equals(this.title);
+        return item.name.equals(this.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title);
+        return Objects.hash(name);
     }
 }

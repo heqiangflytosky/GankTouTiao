@@ -12,13 +12,14 @@ public class GankContentItem extends GankItemBean implements GankItem {
     public GankContentItem(GankItemBean bean){
         this._id = bean._id;
         this.createdAt = bean.createdAt;
+        this.title = bean.title;
         this.desc = bean.desc;
         this.publishedAt = bean.publishedAt;
         this.source = bean.source;
         this.type = bean.type;
         this.url = bean.url;
         this.used = bean.used;
-        this.who = bean.who;
+        this.author = bean.author;
     }
 
     @Override

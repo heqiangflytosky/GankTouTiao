@@ -69,4 +69,7 @@ dependencies {
         exclude module: 'support-compat'
     }
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
+
+    implementation 'com.facebook.stetho:stetho:1.5.1'
+    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.1'
 }

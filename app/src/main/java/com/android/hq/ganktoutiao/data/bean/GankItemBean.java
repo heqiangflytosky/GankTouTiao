@@ -8,11 +8,12 @@ import java.io.Serializable;
 public class GankItemBean implements Serializable{
     public String _id;
     public String createdAt;
+    public String title;
     public String desc;
     public String publishedAt;
     public String source;
     public String type;
     public String url;
     public String used;
-    public String who;
+    public String author;
 }

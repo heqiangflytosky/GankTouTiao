@@ -9,6 +9,7 @@
     <string name="tab_daily_web">WEB</string>
     <string name="tab_daily_app">App</string>
     <string name="tab_daily_expand_res">ExpandRes</string>
+    <string name="tab_daily_flutter">Flutter</string>
 
     <string name="tip_loading_more">Loading More</string>
 

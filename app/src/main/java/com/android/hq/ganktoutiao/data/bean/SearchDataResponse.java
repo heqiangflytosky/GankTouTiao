@@ -7,5 +7,5 @@ import java.util.ArrayList;
  */
 public class SearchDataResponse extends BaseResponse {
     public String count;
-    public ArrayList<GankSearchItemBean> results;
+    public ArrayList<GankSearchItemBean> data;
 }

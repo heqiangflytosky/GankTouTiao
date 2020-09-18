@@ -13,7 +13,7 @@ import com.android.hq.ganktoutiao.data.GankDetailData;
 public class GankSQLiteOpenHelper extends SQLiteOpenHelper {
     private static final String TAG = "GankSQLiteOpenHelper";
     private static final String DB_NAME = "gank.db";
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 2;
 
     public static class UserData{
         public static final String _ID = "_id";
@@ -23,6 +23,7 @@ public class GankSQLiteOpenHelper extends SQLiteOpenHelper {
         public static final String GANK_PUBLISED_DATE = "published_date";
         public static final String GANK_URL = "url";
         public static final String GANK_TITLE = "title";
+        public static final String GANK_DESC = "description";
     }
 
     public static final class HistoryTab extends UserData{
@@ -39,6 +40,7 @@ public class GankSQLiteOpenHelper extends SQLiteOpenHelper {
             contentValues.put(GANK_URL, data.url);
             contentValues.put(GANK_READ_DATE, data.action_date);
             contentValues.put(GANK_TITLE, data.title);
+            contentValues.put(GANK_DESC, data.desc);
             return contentValues;
         }
     }
@@ -57,6 +59,7 @@ public class GankSQLiteOpenHelper extends SQLiteOpenHelper {
             contentValues.put(GANK_URL, data.url);
             contentValues.put(GANK_COLLECT_DATE, data.action_date);
             contentValues.put(GANK_TITLE, data.title);
+            contentValues.put(GANK_DESC, data.desc);
             return contentValues;
         }
     }
@@ -72,6 +75,7 @@ public class GankSQLiteOpenHelper extends SQLiteOpenHelper {
                         + HistoryTab.GANK_PUBLISED_DATE +  " TEXT,"
                         + HistoryTab.GANK_URL + " TEXT,"
                         + HistoryTab.GANK_TITLE + " TEXT,"
+                        + HistoryTab.GANK_DESC + " TEXT,"
                         + HistoryTab.GANK_READ_DATE + " INTEGER"
                         + ");";
         public static final String CREATE_FAVOURITE_TAB =
@@ -84,6 +88,7 @@ public class GankSQLiteOpenHelper extends SQLiteOpenHelper {
                         + FavouriteTab.GANK_PUBLISED_DATE +  " TEXT,"
                         + FavouriteTab.GANK_URL + " TEXT,"
                         + HistoryTab.GANK_TITLE + " TEXT,"
+                        + HistoryTab.GANK_DESC + " TEXT,"
                         + FavouriteTab.GANK_COLLECT_DATE + " INTEGER"
                         + ");";
     }
@@ -100,8 +105,9 @@ public class GankSQLiteOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
-//        if(oldVersion < 2){
-//        }
+        if(oldVersion < 2){
+            upgradeTo2(sqLiteDatabase);
+        }
 //        if(oldVersion < 3){
 //        }
     }
@@ -109,5 +115,12 @@ public class GankSQLiteOpenHelper extends SQLiteOpenHelper {
     private void createTables(SQLiteDatabase db) {
         db.execSQL(SQLS.CREATE_HISTORY_TAB);
         db.execSQL(SQLS.CREATE_FAVOURITE_TAB);
+    }
+
+    private void upgradeTo2(SQLiteDatabase db) {
+        db.execSQL("ALTER TABLE " + HistoryTab.TABLE + " ADD COLUMN " + HistoryTab.GANK_DESC
+                + " TEXT");
+        db.execSQL("ALTER TABLE " + FavouriteTab.TABLE + " ADD COLUMN " + FavouriteTab.GANK_DESC
+                + " TEXT");
     }
 }

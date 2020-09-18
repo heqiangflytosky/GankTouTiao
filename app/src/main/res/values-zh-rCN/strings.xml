@@ -7,6 +7,7 @@
     <string name="tab_daily_web">前端</string>
     <string name="tab_daily_app">App</string>
     <string name="tab_daily_expand_res">拓展资源</string>
+    <string name="tab_daily_flutter">Flutter</string>
 
     <string name="tip_loading_more">加载更多</string>
 

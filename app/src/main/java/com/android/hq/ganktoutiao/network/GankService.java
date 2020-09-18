@@ -25,19 +25,19 @@ public interface GankService {
     @GET(GankApi.GANK_DAY_HISTORY)
     Observable<DayHistoryResponse> getDayHistory();
 
-    @GET(GankApi.GANK_TODAY)
+    @GET("https://gank.io/api/"+GankApi.GANK_TODAY)
     Observable<DailyDataResponse> getToadyData();
 
-    @GET("data/{category}/{pageCount}/{page}")
+    @GET("data/category/GanHuo/type/{category}/page/{page}/count/{pageCount}")
     Observable<GankDataResponse> getGankData(
             @Path("category") String category, @Path("pageCount") int pageCount, @Path("page") int page);
 
-    @GET("search/query/{keyword}/category/all/count/{count}/page/{page}")
+    @GET("search/{keyword}/category/GanHuo/type/All/page/{page}/count/{count}")
     Observable<SearchDataResponse> searchData(
             @Path("keyword") String keyword, @Path("count") int count, @Path("page") int page);
 
     @FormUrlEncoded
     @POST("add2gank")
-    Observable<AddToGankResponse> add2Gank(@Field("url") String url, @Field("desc") String desc, @Field("who") String who,
+    Observable<AddToGankResponse> add2Gank(@Field("url") String url, @Field("title") String desc, @Field("author") String who,
                                 @Field("type") String type,@Field("debug") boolean debug);
 }

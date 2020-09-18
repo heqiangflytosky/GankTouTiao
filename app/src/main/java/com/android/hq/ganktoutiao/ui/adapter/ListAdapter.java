@@ -87,8 +87,9 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if(holder instanceof ViewHolder.ContentViewHolder){
             ViewHolder.ContentViewHolder contentViewHolder = (ViewHolder.ContentViewHolder) holder;
             final GankContentItem item = (GankContentItem) mList.get(position);
-            contentViewHolder.mTitle.setText(item.desc);
-            String who = item.who;
+            contentViewHolder.mTitle.setText(item.title);
+            contentViewHolder.mDesc.setText(item.desc);
+            String who = item.author;
             if(!TextUtils.isEmpty(who)) {
                 contentViewHolder.mFrom.setText(who);
             }
@@ -101,7 +102,7 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 @Override
                 public void onClick(View view) {
                     AppUtils.startArticleDetailActivity(mFragment.getActivity(),
-                            new GankDetailData(item._id, item.type, item.url, item.who, item.desc, item.publishedAt, System.currentTimeMillis()));
+                            new GankDetailData(item._id, item.type, item.url, item.author, item.title,item.desc, item.publishedAt, System.currentTimeMillis()));
                 }
             });
         }else if(holder instanceof ViewHolder.ImageViewHolder){
@@ -112,7 +113,7 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     .into(imageViewHolder.mImageView);
         }else if(holder instanceof ViewHolder.HeaderViewHolder){
             ViewHolder.HeaderViewHolder headerViewHolder = (ViewHolder.HeaderViewHolder) holder;
-            String title = ((GankHeaderItem)mList.get(position)).title;
+            String title = ((GankHeaderItem)mList.get(position)).name;
             headerViewHolder.mTitle.setText(title);
             switch (title){
                 case GankType.TYPE_BENEFIT:
@@ -140,8 +141,9 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }else if(holder instanceof ViewHolder.SearchViewHolder){
             ViewHolder.SearchViewHolder contentViewHolder = (ViewHolder.SearchViewHolder) holder;
             final GankSearchItem item = (GankSearchItem) mList.get(position);
-            contentViewHolder.mTitle.setText(item.desc);
-            String who = item.who;
+            contentViewHolder.mTitle.setText(item.title);
+            contentViewHolder.mDesc.setText(item.desc);
+            String who = item.author;
             if(!TextUtils.isEmpty(who)) {
                 contentViewHolder.mFrom.setText(who);
             }
@@ -155,13 +157,14 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 @Override
                 public void onClick(View view) {
                     AppUtils.startArticleDetailActivity(mFragment.getActivity(),
-                            new GankDetailData(item.ganhuo_id, item.type, item.url, item.who, item.desc, item.publishedAt, System.currentTimeMillis()));
+                            new GankDetailData(item.ganhuo_id, item.type, item.url, item.author, item.title, item.desc, item.publishedAt, System.currentTimeMillis()));
                 }
             });
         }else if (holder instanceof ViewHolder.HistoryFavViewHolder){
             ViewHolder.HistoryFavViewHolder contentViewHolder = (ViewHolder.HistoryFavViewHolder) holder;
             final HistoryFavItem item = (HistoryFavItem) mList.get(position);
             contentViewHolder.mTitle.setText(item.title);
+            contentViewHolder.mDesc.setText(item.desc);
             String who = item.who;
             if(!TextUtils.isEmpty(who)) {
                 contentViewHolder.mFrom.setText(who);
@@ -176,7 +179,7 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 @Override
                 public void onClick(View view) {
                     AppUtils.startArticleDetailActivity(mFragment.getActivity(),
-                            new GankDetailData(item.gank_id, item.gank_type, item.url, item.who, item.title, item.published_date, System.currentTimeMillis()));
+                            new GankDetailData(item.gank_id, item.gank_type, item.url, item.who, item.title, item.desc, item.published_date, System.currentTimeMillis()));
                 }
             });
         }

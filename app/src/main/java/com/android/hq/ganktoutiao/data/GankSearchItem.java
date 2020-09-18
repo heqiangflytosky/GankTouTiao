@@ -9,13 +9,14 @@ import java.util.Objects;
  */
 public class GankSearchItem extends GankSearchItemBean implements GankItem {
     public GankSearchItem(GankSearchItemBean bean){
+        this.title = bean.title;
         this.desc = bean.desc;
         this.ganhuo_id = bean.ganhuo_id;
         this.publishedAt = bean.publishedAt;
         this.readability = bean.readability;
         this.type = bean.type;
         this.url = bean.url;
-        this.who = bean.who;
+        this.author = bean.author;
     }
 
     @Override
