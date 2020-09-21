@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.os.SystemClock;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -45,7 +46,7 @@ public abstract class BaseFragment extends Fragment {
     protected EmptyView mEmptyView;
 
     private boolean mLoadingMore = false;
-    private LinearLayoutManager mLinearLayoutManager;
+    protected RecyclerView.LayoutManager mLayoutManager;
 
     private boolean mCanLoadingMore = true;
     private long mShowLoadMoreTipsTime;
@@ -65,8 +66,8 @@ public abstract class BaseFragment extends Fragment {
         mRefreshLayout.setOnRefreshListener(mOnRefreshListener);
         mRefreshLayout.setColorSchemeResources(R.color.blue, R.color.green, R.color.orange);
 
-        mLinearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        mRecyclerView.setLayoutManager(mLinearLayoutManager);
+        mLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
+        mRecyclerView.setLayoutManager(mLayoutManager);
 
         mRefreshLayout.setEnabled(isEnablePullRefresh());
         mCanLoadingMore = isEnableLoadingMore();
@@ -136,6 +137,10 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
+    public boolean isLoadingMore() {
+        return mLoadingMore;
+    }
+
     public void updateState(int state){
         boolean showEmpty = false;
         boolean clickable = true;
@@ -191,13 +196,45 @@ public abstract class BaseFragment extends Fragment {
                 return;
             }
             boolean isScrollUp = dy > 0 ? true : false;
-            int totalItemCount = mLinearLayoutManager.getItemCount();
-            int lastVisibleItemPosition = mLinearLayoutManager.findLastCompletelyVisibleItemPosition();
-            if(!mLoadingMore && isScrollUp && lastVisibleItemPosition >=totalItemCount -1){
+
+            if (!isScrollUp) {
+                return;
+            }
+
+            int totalItemCount = 0;
+            int lastVisibleItemPosition = 0;
+
+            RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+            if (layoutManager instanceof LinearLayoutManager) {
+                LinearLayoutManager linearLayoutManager = (LinearLayoutManager) layoutManager;
+                totalItemCount = linearLayoutManager.getItemCount();
+                lastVisibleItemPosition = linearLayoutManager.findLastCompletelyVisibleItemPosition();
+            } else if (layoutManager instanceof StaggeredGridLayoutManager) {
+                StaggeredGridLayoutManager staggeredGridLayoutManager = (StaggeredGridLayoutManager) layoutManager;
+                totalItemCount = staggeredGridLayoutManager.getItemCount();
+                int[] index = new int[staggeredGridLayoutManager.getSpanCount()];
+                staggeredGridLayoutManager.findLastCompletelyVisibleItemPositions(index);
+                lastVisibleItemPosition = findMax(index);
+            } else {
+                return;
+            }
+
+            if(!mLoadingMore && lastVisibleItemPosition >=totalItemCount -1){
                 startLoadMore();
             }
         }
     };
+
+    private int findMax(int[] lastPositions) {
+        int max = lastPositions[0];
+        for (int value : lastPositions) {
+            if (value > max) {
+                max = value;
+            }
+        }
+
+        return max;
+    }
 
     private NetWorkObserver.NetworkListener mNetworkListener = new NetWorkObserver.NetworkListener() {
         @Override

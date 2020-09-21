@@ -13,4 +13,5 @@ public class GankType {
     public static final String TYPE_EXPAND_RES = "拓展资源";
     public static final String TYPE_RECOMMEND = "瞎推荐";
     public static final String TYPE_Flutter = "Flutter";
+    public static final String TYPE_GIRL = "Girl";
 }

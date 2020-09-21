@@ -32,6 +32,9 @@ public interface GankService {
     Observable<GankDataResponse> getGankData(
             @Path("category") String category, @Path("pageCount") int pageCount, @Path("page") int page);
 
+    @GET("data/category/Girl/type/Girl/page/{page}/count/{pageCount}")
+    Observable<GankDataResponse> getGirlData(@Path("pageCount") int pageCount, @Path("page") int page);
+
     @GET("search/{keyword}/category/GanHuo/type/All/page/{page}/count/{count}")
     Observable<SearchDataResponse> searchData(
             @Path("keyword") String keyword, @Path("count") int count, @Path("page") int page);

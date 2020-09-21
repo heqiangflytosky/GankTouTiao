@@ -3,7 +3,9 @@ package com.android.hq.ganktoutiao.mvp;
 import androidx.annotation.NonNull;
 
 import com.android.hq.ganktoutiao.data.GankContentItem;
+import com.android.hq.ganktoutiao.data.GankGirlItem;
 import com.android.hq.ganktoutiao.data.GankItem;
+import com.android.hq.ganktoutiao.data.GankType;
 import com.android.hq.ganktoutiao.data.bean.GankDataResponse;
 import com.android.hq.ganktoutiao.data.bean.GankItemBean;
 import com.android.hq.ganktoutiao.network.CallBack;
@@ -36,14 +38,18 @@ public class GankListPresenter implements GankListContract.Presenter {
 
     @Override
     public void loadData(String type) {
-        RequestManager.getInstance().getGankData(type, 20, 1, new CallBack<GankDataResponse>() {
+        CallBack<GankDataResponse> callBack = new CallBack<GankDataResponse>() {
             @Override
             public void onSuccess(GankDataResponse gankDataResponse) {
                 mView.setRefreshing(false);
                 ArrayList<GankItem> list  = new ArrayList<GankItem>();
                 if(gankDataResponse != null && gankDataResponse.data != null){
                     for (GankItemBean bean : gankDataResponse.data){
-                        list.add(new GankContentItem(bean));
+                        if (GankType.TYPE_GIRL.equals(bean.type)) {
+                            list.add(new GankGirlItem(bean));
+                        } else {
+                            list.add(new GankContentItem(bean));
+                        }
                     }
                 }
                 mView.updateData(list);
@@ -55,18 +61,27 @@ public class GankListPresenter implements GankListContract.Presenter {
                 mView.setRefreshing(false);
                 mView.updateError();
             }
-        });
+        };
+        if (GankType.TYPE_GIRL.equals(type)) {
+            RequestManager.getInstance().getGirlData(20,1,callBack);
+        } else {
+            RequestManager.getInstance().getGankData(type, 20, 1, callBack);
+        }
     }
 
     @Override
     public void loadMore(String type, int page) {
-        RequestManager.getInstance().getGankData(type, 20,page, new CallBack<GankDataResponse>() {
+        CallBack<GankDataResponse> callBack = new CallBack<GankDataResponse>() {
             @Override
             public void onSuccess(GankDataResponse gankDataResponse) {
                 ArrayList<GankItem> list = new ArrayList<GankItem>();
                 if (gankDataResponse != null && gankDataResponse.data != null) {
                     for (GankItemBean bean : gankDataResponse.data) {
-                        list.add(new GankContentItem(bean));
+                        if (GankType.TYPE_GIRL.equals(bean.type)) {
+                            list.add(new GankGirlItem(bean));
+                        } else {
+                            list.add(new GankContentItem(bean));
+                        }
                     }
                 }
                 mView.updateMoreData(list);
@@ -76,6 +91,11 @@ public class GankListPresenter implements GankListContract.Presenter {
             public void onFail() {
                 mView.updateLoadMoreError();
             }
-        });
+        };
+        if (GankType.TYPE_GIRL.equals(type)) {
+            RequestManager.getInstance().getGirlData(20,page,callBack);
+        } else {
+            RequestManager.getInstance().getGankData(type, 20, page, callBack);
+        }
     }
 }

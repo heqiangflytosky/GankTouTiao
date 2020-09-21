@@ -4,10 +4,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.hq.ganktoutiao.R;
 import com.android.hq.ganktoutiao.ui.view.RatioImageView;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 /**
  * Created by heqiang on 16-10-9.
@@ -89,6 +91,19 @@ public class ViewHolder {
             mTime = itemView.findViewById(R.id.item_footer_time);
             mType = itemView.findViewById(R.id.item_footer_type);
             mType.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public static class GirlViewHolder extends RecyclerView.ViewHolder{
+        public TextView mTitle;
+        public TextView mDesc;
+        public SimpleDraweeView mImage;
+
+        public GirlViewHolder(ViewGroup parent) {
+            super(LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_item_image_wall, parent,false));
+            mTitle = itemView.findViewById(R.id.content_title);
+            mDesc = itemView.findViewById(R.id.content_des);
+            mImage = itemView.findViewById(R.id.content_image);
         }
     }
 }

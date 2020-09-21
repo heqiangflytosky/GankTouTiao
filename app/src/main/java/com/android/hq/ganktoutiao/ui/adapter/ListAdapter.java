@@ -12,6 +12,7 @@ import com.android.hq.ganktoutiao.R;
 import com.android.hq.ganktoutiao.data.GankContentItem;
 import com.android.hq.ganktoutiao.data.GankDetailData;
 import com.android.hq.ganktoutiao.data.GankFooterItem;
+import com.android.hq.ganktoutiao.data.GankGirlItem;
 import com.android.hq.ganktoutiao.data.GankHeaderItem;
 import com.android.hq.ganktoutiao.data.GankImageItem;
 import com.android.hq.ganktoutiao.data.GankItem;
@@ -36,6 +37,7 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_FOOTER = 4;
     private static final int TYPE_SEARCH_ITEM = 5;
     private static final int TYPE_HISTORY_FAV_ITEM = 6;
+    private static final int TYPE_GIRL = 7;
 
     private Fragment mFragment;
     private List<GankItem> mList;
@@ -59,6 +61,8 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 return new ViewHolder.SearchViewHolder(parent);
             case TYPE_HISTORY_FAV_ITEM:
                 return new ViewHolder.HistoryFavViewHolder(parent);
+            case TYPE_GIRL:
+                return new ViewHolder.GirlViewHolder(parent);
         }
         return null;
     }
@@ -66,7 +70,10 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public int getItemViewType(int position) {
         GankItem item = mList.get(position);
-        if(item instanceof GankContentItem){
+        if(item instanceof GankGirlItem) {
+            // GankGirlItem 要放在 GankContentItem 前面，因为 GankGirlItem 继承自 GankContentItem
+            return TYPE_GIRL;
+        } else if(item instanceof GankContentItem){
             return TYPE_CONTENT;
         }else if(item instanceof GankImageItem){
             return TYPE_IMAGE;
@@ -182,6 +189,12 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                             new GankDetailData(item.gank_id, item.gank_type, item.url, item.who, item.title, item.desc, item.published_date, System.currentTimeMillis()));
                 }
             });
+        } else if (holder instanceof ViewHolder.GirlViewHolder) {
+            ViewHolder.GirlViewHolder contentViewHolder = (ViewHolder.GirlViewHolder) holder;
+            final GankGirlItem item = (GankGirlItem) mList.get(position);
+            contentViewHolder.mImage.setImageURI(item.url);
+            contentViewHolder.mTitle.setText(item.title);
+            contentViewHolder.mDesc.setText(item.desc);
         }
     }
 

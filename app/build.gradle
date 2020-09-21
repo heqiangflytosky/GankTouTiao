@@ -48,10 +48,10 @@ android {
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
     api 'com.google.android.material:material:1.0.0'
-    api 'androidx.appcompat:appcompat:1.0.0'
-    api 'androidx.legacy:legacy-support-v13:1.0.0'
-    api 'androidx.recyclerview:recyclerview:1.0.0'
-    api 'androidx.annotation:annotation:1.0.0'
+    api "androidx.appcompat:appcompat:${androidXVersion}"
+    api "androidx.legacy:legacy-support-v13:${androidXVersion}"
+    api "androidx.recyclerview:recyclerview:${androidXVersion}"
+    api "androidx.annotation:annotation:${androidXVersion}"
     api 'com.squareup.retrofit2:retrofit:2.0.2'
     api 'com.squareup.retrofit2:converter-gson:2.0.2'
     api 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
@@ -72,4 +72,7 @@ dependencies {
 
     implementation 'com.facebook.stetho:stetho:1.5.1'
     implementation 'com.facebook.stetho:stetho-okhttp3:1.5.1'
+    implementation 'com.facebook.fresco:fresco:2.3.0'
+    implementation "com.facebook.fresco:imagepipeline-okhttp3:2.3.0"
+    implementation "androidx.cardview:cardview:${androidXVersion}"
 }

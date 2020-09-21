@@ -207,6 +207,33 @@ public class RequestManager {
                 });
     }
 
+    public void getGirlData(int pageCount, int page, final CallBack<GankDataResponse> callback){
+        mGankService.getGirlData(pageCount, page)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<GankDataResponse>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        callback.onFail();
+                    }
+
+                    @Override
+                    public void onNext(GankDataResponse gankDataResponse) {
+                        callback.onSuccess(gankDataResponse);
+                    }
+                });
+    }
+
     public void getSearchData(String keyWord, int pageCount, int page, final CallBack<SearchDataResponse> callback){
         mGankService.searchData(keyWord, pageCount, page)
                 .subscribeOn(Schedulers.io())

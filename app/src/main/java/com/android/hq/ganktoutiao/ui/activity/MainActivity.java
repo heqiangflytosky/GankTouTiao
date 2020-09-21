@@ -1,7 +1,10 @@
 package com.android.hq.ganktoutiao.ui.activity;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Looper;
+import android.os.SystemClock;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,12 +20,33 @@ import com.android.hq.ganktoutiao.ui.fragment.PresentFragment;
 import com.android.hq.ganktoutiao.ui.fragment.SearchFragment;
 import com.android.hq.ganktoutiao.ui.view.SizeObserverLinearLayout;
 import com.android.hq.ganktoutiao.ui.view.ViewPagerEx;
+import com.facebook.common.logging.FLog;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.imagepipeline.backends.okhttp3.OkHttpImagePipelineConfigFactory;
+import com.facebook.imagepipeline.core.ImagePipelineConfig;
+import com.facebook.imagepipeline.image.EncodedImage;
+import com.facebook.imagepipeline.producers.BaseNetworkFetcher;
+import com.facebook.imagepipeline.producers.BaseProducerContextCallbacks;
+import com.facebook.imagepipeline.producers.Consumer;
+import com.facebook.imagepipeline.producers.FetchState;
+import com.facebook.imagepipeline.producers.ProducerContext;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.Executor;
 
 import butterknife.BindColor;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import okhttp3.CacheControl;
+import okhttp3.Call;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 public class MainActivity extends Activity{
 
@@ -59,13 +83,18 @@ public class MainActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mUnbinder = ButterKnife.bind(this);
+        initFresco();
         initView();
     }
 
+    private void initFresco() {
+        Fresco.initialize(this);
+    }
+
     private void initView(){
-        mRootView = (SizeObserverLinearLayout) findViewById(R.id.root_view);
-        mViewPager = (ViewPagerEx) findViewById(R.id.view_pager_main);
-        mToolBar = (ViewGroup) findViewById(R.id.tool_bar);
+        mRootView = findViewById(R.id.root_view);
+        mViewPager = findViewById(R.id.view_pager_main);
+        mToolBar = findViewById(R.id.tool_bar);
         mPagerAdapter = new PagerAdapter(this);
 
         mViewPager.setAdapter(mPagerAdapter);
@@ -124,22 +153,22 @@ public class MainActivity extends Activity{
         resetButton();
         switch (view.getId()){
             case R.id.page1:
-                mViewPager.setCurrentItem(0);
+                mViewPager.setCurrentItem(0, false);
                 mHomeImg.setImageResource(R.drawable.tab_home);
                 mHomeTv.setTextColor(mToolBarSelectColor);
                 break;
             case R.id.search:
-                mViewPager.setCurrentItem(1);
+                mViewPager.setCurrentItem(1, false);
                 mSearchImg.setImageResource(R.drawable.tab_explore);
                 mSearchTv.setTextColor(mToolBarSelectColor);
                 break;
             case R.id.present:
-                mViewPager.setCurrentItem(2);
+                mViewPager.setCurrentItem(2, false);
                 mPresentImg.setImageResource(R.drawable.tab_recommend);
                 mPresentTv.setTextColor(mToolBarSelectColor);
                 break;
             case R.id.about:
-                mViewPager.setCurrentItem(3);
+                mViewPager.setCurrentItem(3, false);
                 mAboutImg.setImageResource(R.drawable.tab_profile);
                 mAboutTv.setTextColor(mToolBarSelectColor);
                 break;

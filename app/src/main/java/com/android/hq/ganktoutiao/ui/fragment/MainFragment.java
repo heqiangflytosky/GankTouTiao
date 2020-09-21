@@ -65,17 +65,20 @@ public class MainFragment extends Fragment {
         mPagerAdapter.addPage(GankListFragment.newInstance(GankType.TYPE_APP));
 
         mPagerAdapter.addPage(GankListFragment.newInstance(GankType.TYPE_Flutter));
+
+        mPagerAdapter.addPage(GankListFragment.newInstance(GankType.TYPE_GIRL));
     }
 
     private void addTabs(){
         int defaultID;
 
         //addTab(R.string.tab_daily_recommend, 0, true);
-        addTab(R.string.tab_daily_android, 0, false);
+        addTab(R.string.tab_daily_android, 0, true);
         addTab(R.string.tab_daily_ios, 1, false);
         addTab(R.string.tab_daily_web, 2, false);
         addTab(R.string.tab_daily_app, 3, false);
         addTab(R.string.tab_daily_flutter, 4, false);
+        addTab(R.string.tab_girl, 5, false);
 
         mViewPager.setCurrentItem(0);
     }

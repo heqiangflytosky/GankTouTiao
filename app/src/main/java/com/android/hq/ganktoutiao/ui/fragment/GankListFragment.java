@@ -1,9 +1,15 @@
 package com.android.hq.ganktoutiao.ui.fragment;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.android.hq.ganktoutiao.data.GankItem;
+import com.android.hq.ganktoutiao.data.GankType;
 import com.android.hq.ganktoutiao.mvp.GankListContract;
 import com.android.hq.ganktoutiao.mvp.GankListPresenter;
 
@@ -33,6 +39,18 @@ public class GankListFragment extends BaseFragment implements GankListContract.V
         super.onCreate(savedInstanceState);
         Bundle bundle = getArguments();
         mType = bundle != null ? bundle.getString(TYPE) : null;
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = super.onCreateView(inflater, container, savedInstanceState);
+        if (GankType.TYPE_GIRL.equals(mType)) {
+            // 覆盖 BaseFragment 中的 LayoutManager
+            mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+            mRecyclerView.setLayoutManager(mLayoutManager);
+        }
+        return view;
     }
 
     @Override
