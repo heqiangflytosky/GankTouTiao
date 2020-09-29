@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.drawable.Animatable;
 import android.net.Uri;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import com.facebook.drawee.backends.pipeline.PipelineDraweeControllerBuilder;
 import com.facebook.drawee.controller.BaseControllerListener;
@@ -14,6 +15,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.image.ImageInfo;
 
 public class WrapContentDraweeView extends SimpleDraweeView {
+    private Callback mCallback;
 
     public WrapContentDraweeView(Context context, GenericDraweeHierarchy hierarchy) {
         super(context, hierarchy);
@@ -46,9 +48,16 @@ public class WrapContentDraweeView extends SimpleDraweeView {
         setController(controller);
     }
 
+    public void setCallback(Callback callback) {
+        mCallback = callback;
+    }
+
     void updateViewSize(ImageInfo imageInfo) {
         if (imageInfo != null) {
             setAspectRatio((float) imageInfo.getWidth() / imageInfo.getHeight());
+        }
+        if (mCallback != null) {
+            mCallback.updateRatio((float) imageInfo.getWidth() / imageInfo.getHeight());
         }
     }
 
@@ -63,4 +72,8 @@ public class WrapContentDraweeView extends SimpleDraweeView {
             updateViewSize(imageInfo);
         }
     };
+
+    public interface Callback{
+        void updateRatio(float ratio);
+    }
 }

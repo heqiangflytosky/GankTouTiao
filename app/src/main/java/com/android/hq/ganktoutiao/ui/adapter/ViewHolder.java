@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.android.hq.ganktoutiao.R;
 import com.android.hq.ganktoutiao.ui.view.RatioImageView;
+import com.android.hq.ganktoutiao.ui.view.WrapContentDraweeView;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 /**
@@ -97,7 +98,7 @@ public class ViewHolder {
     public static class GirlViewHolder extends RecyclerView.ViewHolder{
         public TextView mTitle;
         public TextView mDesc;
-        public SimpleDraweeView mImage;
+        public WrapContentDraweeView mImage;
 
         public GirlViewHolder(ViewGroup parent) {
             super(LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_item_image_wall, parent,false));

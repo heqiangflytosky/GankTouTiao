@@ -19,6 +19,7 @@ import com.android.hq.ganktoutiao.data.GankItem;
 import com.android.hq.ganktoutiao.data.GankSearchItem;
 import com.android.hq.ganktoutiao.data.GankType;
 import com.android.hq.ganktoutiao.data.HistoryFavItem;
+import com.android.hq.ganktoutiao.ui.view.WrapContentDraweeView;
 import com.android.hq.ganktoutiao.utils.AppUtils;
 import com.bumptech.glide.Glide;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
@@ -192,7 +193,14 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         } else if (holder instanceof ViewHolder.GirlViewHolder) {
             ViewHolder.GirlViewHolder contentViewHolder = (ViewHolder.GirlViewHolder) holder;
             final GankGirlItem item = (GankGirlItem) mList.get(position);
+            contentViewHolder.mImage.setCallback(new WrapContentDraweeView.Callback() {
+                @Override
+                public void updateRatio(float ratio) {
+                    item.ratio = ratio;
+                }
+            });
             contentViewHolder.mImage.setImageURI(item.url);
+            contentViewHolder.mImage.setAspectRatio(item.ratio);
             contentViewHolder.mTitle.setText(item.title);
             contentViewHolder.mDesc.setText(item.desc);
         }
