@@ -66,7 +66,7 @@ public class MainFragment extends Fragment {
 
         mPagerAdapter.addPage(GankListFragment.newInstance(GankType.TYPE_Flutter));
 
-        mPagerAdapter.addPage(GankListFragment.newInstance(GankType.TYPE_GIRL));
+        mPagerAdapter.addPage(ImageWallFragment.newInstance());
     }
 
     private void addTabs(){

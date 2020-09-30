@@ -77,4 +77,5 @@ dependencies {
     implementation "com.facebook.fresco:imagepipeline-okhttp3:2.3.0"
     implementation "androidx.cardview:cardview:${androidXVersion}"
     implementation "androidx.viewpager2:viewpager2:${androidXVersion}"
+    implementation "org.greenrobot:eventbus:3.2.0"
 }

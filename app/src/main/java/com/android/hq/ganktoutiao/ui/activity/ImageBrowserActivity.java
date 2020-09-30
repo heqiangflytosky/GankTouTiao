@@ -15,6 +15,9 @@ import com.android.hq.ganktoutiao.R;
 import com.android.hq.ganktoutiao.data.GankGirlItem;
 import com.android.hq.ganktoutiao.data.GankItem;
 import com.android.hq.ganktoutiao.ui.view.WrapContentDraweeView;
+import com.android.hq.ganktoutiao.utils.Event;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -37,6 +40,7 @@ public class ImageBrowserActivity extends AppCompatActivity {
         int index = getIntent().getIntExtra(EXTRA_INDEX, 0);
         setData(mList);
         mViewPager.setCurrentItem(index, false);
+        mViewPager.registerOnPageChangeCallback(mPageChangeCallback);
     }
 
     @Override
@@ -44,6 +48,18 @@ public class ImageBrowserActivity extends AppCompatActivity {
         super.onBackPressed();
         // 解决全屏切换非全屏界面跳动问题
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN, WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
+
+        Event event = new Event();
+        event.msg = "Test Event";
+        event.currentIndex = mViewPager.getCurrentItem();
+        event.list = mList;
+        EventBus.getDefault().post(event);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mViewPager.unregisterOnPageChangeCallback(mPageChangeCallback);
     }
 
     private void setFullScreen() {
@@ -65,6 +81,13 @@ public class ImageBrowserActivity extends AppCompatActivity {
         mList = list;
         mAdapter.notifyDataSetChanged();
     }
+
+    private ViewPager2.OnPageChangeCallback mPageChangeCallback = new ViewPager2.OnPageChangeCallback() {
+        @Override
+        public void onPageSelected(int position) {
+
+        }
+    };
 
     public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 

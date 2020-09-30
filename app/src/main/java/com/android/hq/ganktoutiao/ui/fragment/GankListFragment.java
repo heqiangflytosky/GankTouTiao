@@ -41,17 +41,17 @@ public class GankListFragment extends BaseFragment implements GankListContract.V
         mType = bundle != null ? bundle.getString(TYPE) : null;
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = super.onCreateView(inflater, container, savedInstanceState);
-        if (GankType.TYPE_GIRL.equals(mType)) {
-            // 覆盖 BaseFragment 中的 LayoutManager
-            mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-            mRecyclerView.setLayoutManager(mLayoutManager);
-        }
-        return view;
-    }
+//    @Nullable
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+//        View view = super.onCreateView(inflater, container, savedInstanceState);
+//        if (GankType.TYPE_GIRL.equals(mType)) {
+//            // 覆盖 BaseFragment 中的 LayoutManager
+//            mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+//            mRecyclerView.setLayoutManager(mLayoutManager);
+//        }
+//        return view;
+//    }
 
     @Override
     public void onResume() {
