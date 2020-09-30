@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.hq.ganktoutiao.R;
 
 import butterknife.BindView;
@@ -14,7 +16,7 @@ import butterknife.Unbinder;
 /**
  * Created by heqiang on 16-10-18.
  */
-public class AboutMeActivity extends Activity {
+public class AboutMeActivity extends AppCompatActivity {
     private Unbinder mUnbinder;
 
     @BindView(R.id.menu_title)

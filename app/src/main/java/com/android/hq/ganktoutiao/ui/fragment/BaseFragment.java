@@ -3,6 +3,7 @@ package com.android.hq.ganktoutiao.ui.fragment;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.os.SystemClock;
+
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;

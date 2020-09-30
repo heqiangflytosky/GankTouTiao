@@ -65,9 +65,10 @@ dependencies {
     api 'com.mikepenz:material-design-iconic-typeface:2.2.0.2@aar'
     api 'com.mikepenz:fontawesome-typeface:4.5.0.1@aar'
 
-    api ('com.jakewharton:butterknife:10.0.0'){
+    api('com.jakewharton:butterknife:10.0.0') {
         exclude module: 'support-compat'
     }
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
 
     implementation 'com.facebook.stetho:stetho:1.5.1'
@@ -75,4 +76,5 @@ dependencies {
     implementation 'com.facebook.fresco:fresco:2.3.0'
     implementation "com.facebook.fresco:imagepipeline-okhttp3:2.3.0"
     implementation "androidx.cardview:cardview:${androidXVersion}"
+    implementation "androidx.viewpager2:viewpager2:${androidXVersion}"
 }

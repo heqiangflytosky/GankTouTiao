@@ -5,7 +5,6 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
-import android.content.pm.LabeledIntent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
@@ -16,23 +15,23 @@ import android.os.Environment;
 import android.provider.Browser;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.android.hq.ganktoutiao.R;
 import com.android.hq.ganktoutiao.data.GankDetailData;
 import com.android.hq.ganktoutiao.data.GankItem;
-import com.android.hq.ganktoutiao.data.bean.GankItemBean;
 import com.android.hq.ganktoutiao.provider.GankProviderHelper;
 import com.android.hq.ganktoutiao.ui.activity.ArticleDetailActivity;
+import com.android.hq.ganktoutiao.ui.activity.ImageBrowserActivity;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.iconics.typeface.IIcon;
-import com.mikepenz.material_design_iconic_typeface_library.MaterialDesignIconic;
 
 import java.io.File;
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by heqiang on 16-10-8.
@@ -158,6 +157,17 @@ public class AppUtils {
         intent.setClassName("com.android.browser", "com.android.browser.BrowserActivity");
         intent.putExtra(Browser.EXTRA_CREATE_NEW_TAB, true);
         activity.startActivity(intent);
+    }
+
+    public static void startImageBrowserActivity(Activity activity, List<GankItem> list, int index) {
+        if(activity == null) {
+            return;
+        }
+        Intent intent = new Intent(activity, ImageBrowserActivity.class);
+        intent.putExtra(ImageBrowserActivity.EXTRA_DATA, (Serializable)list);
+        intent.putExtra(ImageBrowserActivity.EXTRA_INDEX, index);
+        activity.startActivity(intent);
+        activity.overridePendingTransition(0, 0);
     }
 
     public static void copy(Activity activity, String str){

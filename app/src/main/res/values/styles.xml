@@ -21,6 +21,12 @@
         <item name="windowActionModeOverlay">true</item>
     </style>
 
+    <style name="FullScreenTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowFullscreen">true</item> // 去掉状态栏
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
+
     <style name="ArticleDetailActivityTheme" parent="@style/LightTheme.NoActionBar">
 
     </style>
@@ -57,6 +63,7 @@
         <item name="android:gravity">center</item>
         <item name="android:drawablePadding">2.0dip</item>
     </style>
+
     <style name="item_header">
         <item name="android:textSize">14.0sp</item>
         <item name="android:textColor">@color/text_item_header</item>

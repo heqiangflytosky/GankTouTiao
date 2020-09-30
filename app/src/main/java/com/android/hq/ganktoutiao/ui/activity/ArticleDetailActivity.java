@@ -17,6 +17,8 @@ import android.widget.ListPopupWindow;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.hq.ganktoutiao.R;
 import com.android.hq.ganktoutiao.data.GankDetailData;
 import com.android.hq.ganktoutiao.data.bean.GankItemBean;
@@ -32,7 +34,7 @@ import butterknife.Unbinder;
 /**
  * Created by heqiang on 16-10-11.
  */
-public class ArticleDetailActivity extends Activity{
+public class ArticleDetailActivity extends AppCompatActivity {
     private Unbinder mUnbinder;
 
     @BindView(R.id.webview)

@@ -9,13 +9,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.hq.ganktoutiao.R;
 import com.android.hq.ganktoutiao.ui.fragment.FavouriteHistoryFragment;
 
 /**
  * Created by heqiang on 16-10-25.
  */
-public class FavouriteHistoryActivity extends Activity {
+public class FavouriteHistoryActivity extends AppCompatActivity {
     public final static int ACTIVITY_TYPE_HISTORY = 1;
     public final static int ACTIVITY_TYPE_FAV = 2;
     public final static String ACTIVITY_TYPE = "ACTIVITY_TYPE";

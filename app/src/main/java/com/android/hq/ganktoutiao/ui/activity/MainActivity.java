@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.hq.ganktoutiao.R;
 import com.android.hq.ganktoutiao.ui.adapter.PagerAdapter;
 import com.android.hq.ganktoutiao.ui.fragment.AboutFragment;
@@ -48,7 +50,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-public class MainActivity extends Activity{
+public class MainActivity extends AppCompatActivity {
 
     private SizeObserverLinearLayout mRootView;
     private ViewPagerEx mViewPager;
@@ -116,7 +118,7 @@ public class MainActivity extends Activity{
             @Override
             public void onSizeWillChanged(int w, int h) {
                 int heightDiff = mRootView.getRootView().getMeasuredHeight() - h;
-                if (heightDiff > 100) {
+                if (heightDiff > 500) {
                     mToolBar.setVisibility(View.GONE);
                 } else {
                     mToolBar.setVisibility(View.VISIBLE);

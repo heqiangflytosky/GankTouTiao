@@ -1,5 +1,6 @@
 package com.android.hq.ganktoutiao.ui.adapter;
 
+import android.app.Dialog;
 import android.app.Fragment;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -203,6 +204,12 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             contentViewHolder.mImage.setAspectRatio(item.ratio);
             contentViewHolder.mTitle.setText(item.title);
             contentViewHolder.mDesc.setText(item.desc);
+            contentViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AppUtils.startImageBrowserActivity(mFragment.getActivity(), mList, position);
+                }
+            });
         }
     }
 
