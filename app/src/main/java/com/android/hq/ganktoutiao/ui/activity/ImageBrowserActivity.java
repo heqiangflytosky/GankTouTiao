@@ -2,13 +2,17 @@ package com.android.hq.ganktoutiao.ui.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.SharedElementCallback;
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 
 import com.android.hq.ganktoutiao.R;
@@ -16,10 +20,13 @@ import com.android.hq.ganktoutiao.data.GankGirlItem;
 import com.android.hq.ganktoutiao.data.GankItem;
 import com.android.hq.ganktoutiao.ui.view.WrapContentDraweeView;
 import com.android.hq.ganktoutiao.utils.Event;
+import com.facebook.drawee.drawable.ScalingUtils;
+import com.facebook.drawee.view.DraweeTransition;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
+import java.util.Map;
 
 public class ImageBrowserActivity extends AppCompatActivity {
 
@@ -33,6 +40,13 @@ public class ImageBrowserActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // 解决SimpleDraweeView无法共享元素动画的问题
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setSharedElementEnterTransition(DraweeTransition.createTransitionSet(ScalingUtils.ScaleType.CENTER_CROP, ScalingUtils.ScaleType.CENTER_CROP));
+            getWindow().setSharedElementReturnTransition(DraweeTransition.createTransitionSet(ScalingUtils.ScaleType.CENTER_CROP, ScalingUtils.ScaleType.CENTER_CROP));
+        }
+        supportPostponeEnterTransition();
+
         setContentView(R.layout.activity_image_browser);
         setFullScreen();
         init();
@@ -41,6 +55,26 @@ public class ImageBrowserActivity extends AppCompatActivity {
         setData(mList);
         mViewPager.setCurrentItem(index, false);
         mViewPager.registerOnPageChangeCallback(mPageChangeCallback);
+
+        //监听viewpager布局树已经绘制完成
+        mViewPager.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                mViewPager.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                //开始共享元素动画
+                supportStartPostponedEnterTransition();
+            }
+        });
+        setEnterSharedElementCallback(new SharedElementCallback() {
+            @Override
+            public void onMapSharedElements(List<String> names, Map<String, View> sharedElements) {
+                names.clear();
+                names.add(String.valueOf(mViewPager.getCurrentItem()));
+                sharedElements.clear();
+                sharedElements.put(String.valueOf(mViewPager.getCurrentItem()),
+                        mViewPager.findViewWithTag(mViewPager.getCurrentItem()));
+            }
+        });
     }
 
     @Override
@@ -85,7 +119,11 @@ public class ImageBrowserActivity extends AppCompatActivity {
     private ViewPager2.OnPageChangeCallback mPageChangeCallback = new ViewPager2.OnPageChangeCallback() {
         @Override
         public void onPageSelected(int position) {
-
+//            Event event = new Event();
+//            event.msg = "Test Event";
+//            event.currentIndex = mViewPager.getCurrentItem();
+//            event.list = mList;
+//            EventBus.getDefault().post(event);
         }
     };
 
@@ -103,6 +141,8 @@ public class ImageBrowserActivity extends AppCompatActivity {
             ViewHolder contentViewHolder = (ViewHolder) holder;
             contentViewHolder.image.setImageURI(item.url);
             contentViewHolder.image.setAspectRatio(item.ratio);
+            contentViewHolder.image.setTag(position);
+            ViewCompat.setTransitionName(contentViewHolder.image, String.valueOf(position));
             contentViewHolder.image.setCallback(new WrapContentDraweeView.Callback() {
                 @Override
                 public void updateRatio(float ratio) {

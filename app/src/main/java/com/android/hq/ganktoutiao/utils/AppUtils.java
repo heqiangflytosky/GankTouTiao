@@ -15,12 +15,18 @@ import android.os.Environment;
 import android.provider.Browser;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.TextView;
+
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.view.ViewCompat;
 
 import com.android.hq.ganktoutiao.R;
 import com.android.hq.ganktoutiao.data.GankDetailData;
+import com.android.hq.ganktoutiao.data.GankGirlItem;
 import com.android.hq.ganktoutiao.data.GankItem;
 import com.android.hq.ganktoutiao.provider.GankProviderHelper;
+import com.android.hq.ganktoutiao.ui.activity.AboutMeActivity;
 import com.android.hq.ganktoutiao.ui.activity.ArticleDetailActivity;
 import com.android.hq.ganktoutiao.ui.activity.ImageBrowserActivity;
 import com.mikepenz.iconics.IconicsDrawable;
@@ -159,15 +165,21 @@ public class AppUtils {
         activity.startActivity(intent);
     }
 
-    public static void startImageBrowserActivity(Activity activity, List<GankItem> list, int index) {
-        if(activity == null) {
+    public static void startImageBrowserActivity(View view, List<GankItem> list, int index) {
+        if(view == null || view.getContext() == null) {
             return;
         }
+        Activity activity = (Activity) view.getContext();
+
+        ActivityOptionsCompat options =
+                ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
+                        view, String.valueOf(index));
+
         Intent intent = new Intent(activity, ImageBrowserActivity.class);
         intent.putExtra(ImageBrowserActivity.EXTRA_DATA, (Serializable)list);
         intent.putExtra(ImageBrowserActivity.EXTRA_INDEX, index);
-        activity.startActivity(intent);
-        activity.overridePendingTransition(0, 0);
+        activity.startActivity(intent,options.toBundle());
+        //activity.overridePendingTransition(0, 0);
     }
 
     public static void copy(Activity activity, String str){

@@ -1,12 +1,15 @@
 package com.android.hq.ganktoutiao.ui.fragment;
 
+import android.app.SharedElementCallback;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.android.hq.ganktoutiao.data.GankType;
@@ -16,6 +19,9 @@ import com.android.hq.ganktoutiao.utils.Event;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.List;
+import java.util.Map;
 
 public class ImageWallFragment extends GankListFragment {
 
@@ -38,7 +44,31 @@ public class ImageWallFragment extends GankListFragment {
 
         EventBus.getDefault().register(this);
 
+        getActivity().setExitSharedElementCallback(new SharedElementCallback() {
+            @Override
+            public void onMapSharedElements(List<String> names, Map<String, View> sharedElements) {
+                if (sharedElements.size() == 0) {
+                    int key = Integer.valueOf(names.get(0));
+                    sharedElements.put(names.get(0),mRecyclerView.findViewWithTag(key));
+                }
+            }
+        });
+
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // 从大图页返回时先暂停共享元素动画，等待布局完成
+        ((AppCompatActivity) getActivity()).supportPostponeEnterTransition();
+        mRecyclerView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                mRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                ((AppCompatActivity) getActivity()).supportStartPostponedEnterTransition();
+            }
+        });
     }
 
     @Override
