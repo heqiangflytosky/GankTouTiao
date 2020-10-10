@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.android.hq.ganktoutiao.data.GankType;
 import com.android.hq.ganktoutiao.mvp.GankListPresenter;
+import com.android.hq.ganktoutiao.mvp.GirlDataSource;
+import com.android.hq.ganktoutiao.mvp.GirlListPresenter;
 import com.android.hq.ganktoutiao.utils.Event;
 
 import org.greenrobot.eventbus.EventBus;
@@ -30,7 +32,7 @@ public class ImageWallFragment extends GankListFragment {
         bundle.putString(GankListFragment.TYPE, GankType.TYPE_GIRL);
         ImageWallFragment fragment = new ImageWallFragment();
         fragment.setArguments(bundle);
-        new GankListPresenter(fragment);
+        new GirlListPresenter(fragment, GirlDataSource.getInstance());
         return fragment;
     }
 
@@ -69,6 +71,12 @@ public class ImageWallFragment extends GankListFragment {
                 ((AppCompatActivity) getActivity()).supportStartPostponedEnterTransition();
             }
         });
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        ((GirlListPresenter)mPresenter).updateData(mAdapter.getData());
     }
 
     @Override

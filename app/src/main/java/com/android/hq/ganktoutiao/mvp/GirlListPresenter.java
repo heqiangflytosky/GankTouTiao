@@ -12,18 +12,20 @@ import com.android.hq.ganktoutiao.network.CallBack;
 import com.android.hq.ganktoutiao.network.RequestManager;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-public class GankListPresenter implements GankListContract.Presenter {
-
+public class GirlListPresenter implements GankListContract.Presenter {
     private GankListContract.View mView;
     private CompositeDisposable mCompositeDisposable;
+    private GirlDataSource mDataSource;
 
-    public GankListPresenter(@NonNull GankListContract.View view) {
+    public GirlListPresenter(@NonNull GankListContract.View view, GirlDataSource dataSource) {
         mView = view;
         mView.setPresenter(this);
         mCompositeDisposable = new CompositeDisposable();
+        mDataSource = dataSource;
     }
 
     @Override
@@ -38,6 +40,7 @@ public class GankListPresenter implements GankListContract.Presenter {
 
     @Override
     public void loadData(String type) {
+        /*
         CallBack<GankDataResponse> callBack = new CallBack<GankDataResponse>() {
             @Override
             public void onSuccess(GankDataResponse gankDataResponse) {
@@ -45,7 +48,7 @@ public class GankListPresenter implements GankListContract.Presenter {
                 ArrayList<GankItem> list  = new ArrayList<GankItem>();
                 if(gankDataResponse != null && gankDataResponse.data != null){
                     for (GankItemBean bean : gankDataResponse.data){
-                        list.add(new GankContentItem(bean));
+                        list.add(new GankGirlItem(bean));
                     }
                 }
                 mView.updateData(list);
@@ -58,18 +61,34 @@ public class GankListPresenter implements GankListContract.Presenter {
                 mView.updateError();
             }
         };
-        RequestManager.getInstance().getGankData(type, 20, 1, callBack);
+        RequestManager.getInstance().getGirlData(20,1,callBack);
+        */
+        mDataSource.loadData(new BaseDataSource.LoadDataCallback() {
+            @Override
+            public void onLoaded(List<GankItem> list) {
+                mView.setRefreshing(false);
+                mView.updateData(list);
+                mView.updateSuccess(list.isEmpty());
+            }
+
+            @Override
+            public void onError() {
+                mView.setRefreshing(false);
+                mView.updateError();
+            }
+        });
     }
 
     @Override
     public void loadMore(String type, int page) {
+        /*
         CallBack<GankDataResponse> callBack = new CallBack<GankDataResponse>() {
             @Override
             public void onSuccess(GankDataResponse gankDataResponse) {
                 ArrayList<GankItem> list = new ArrayList<GankItem>();
                 if (gankDataResponse != null && gankDataResponse.data != null) {
                     for (GankItemBean bean : gankDataResponse.data) {
-                        list.add(new GankContentItem(bean));
+                        list.add(new GankGirlItem(bean));
                     }
                 }
                 mView.updateMoreData(list);
@@ -80,6 +99,22 @@ public class GankListPresenter implements GankListContract.Presenter {
                 mView.updateLoadMoreError();
             }
         };
-        RequestManager.getInstance().getGankData(type, 20, page, callBack);
+        RequestManager.getInstance().getGirlData(20,page,callBack);
+        */
+        mDataSource.loadMoreData(page, new BaseDataSource.LoadDataCallback() {
+            @Override
+            public void onLoaded(List<GankItem> list) {
+                mView.updateMoreData(list);
+            }
+
+            @Override
+            public void onError() {
+                mView.updateLoadMoreError();
+            }
+        });
+    }
+
+    public void updateData(List<GankItem> list) {
+        mDataSource.updateData(list);
     }
 }

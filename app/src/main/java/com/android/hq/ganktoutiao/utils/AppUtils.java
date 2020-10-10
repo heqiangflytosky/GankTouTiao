@@ -165,7 +165,7 @@ public class AppUtils {
         activity.startActivity(intent);
     }
 
-    public static void startImageBrowserActivity(View view, List<GankItem> list, int index) {
+    public static void startImageBrowserActivity(View view, int index) {
         if(view == null || view.getContext() == null) {
             return;
         }
@@ -176,7 +176,7 @@ public class AppUtils {
                         view, String.valueOf(index));
 
         Intent intent = new Intent(activity, ImageBrowserActivity.class);
-        intent.putExtra(ImageBrowserActivity.EXTRA_DATA, (Serializable)list);
+        //intent.putExtra(ImageBrowserActivity.EXTRA_DATA, (Serializable)list);
         intent.putExtra(ImageBrowserActivity.EXTRA_INDEX, index);
         activity.startActivity(intent,options.toBundle());
         //activity.overridePendingTransition(0, 0);

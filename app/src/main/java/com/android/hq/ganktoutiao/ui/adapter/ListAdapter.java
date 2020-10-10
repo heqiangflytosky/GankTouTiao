@@ -210,7 +210,7 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             contentViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    AppUtils.startImageBrowserActivity(contentViewHolder.itemView, mList, position);
+                    AppUtils.startImageBrowserActivity(contentViewHolder.itemView, position);
                 }
             });
         }
@@ -248,5 +248,9 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         int size = mList.size();
         mList.add(new GankFooterItem());
         notifyItemRangeInserted(size,1);
+    }
+
+    public List<GankItem> getData() {
+        return mList;
     }
 }

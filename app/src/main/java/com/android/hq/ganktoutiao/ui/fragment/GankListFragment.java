@@ -23,7 +23,7 @@ public class GankListFragment extends BaseFragment implements GankListContract.V
     public static final String TYPE = "type";
     private int mCurrentPage = 0;
     private String mType;
-    private GankListContract.Presenter mPresenter;
+    protected GankListContract.Presenter mPresenter;
 
     public static GankListFragment newInstance(String type) {
         Bundle bundle = new Bundle();

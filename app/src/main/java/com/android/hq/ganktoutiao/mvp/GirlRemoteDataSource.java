@@ -1,7 +1,5 @@
 package com.android.hq.ganktoutiao.mvp;
 
-import androidx.annotation.NonNull;
-
 import com.android.hq.ganktoutiao.data.GankContentItem;
 import com.android.hq.ganktoutiao.data.GankGirlItem;
 import com.android.hq.ganktoutiao.data.GankItem;
@@ -12,74 +10,59 @@ import com.android.hq.ganktoutiao.network.CallBack;
 import com.android.hq.ganktoutiao.network.RequestManager;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import io.reactivex.disposables.CompositeDisposable;
-
-public class GankListPresenter implements GankListContract.Presenter {
-
-    private GankListContract.View mView;
-    private CompositeDisposable mCompositeDisposable;
-
-    public GankListPresenter(@NonNull GankListContract.View view) {
-        mView = view;
-        mView.setPresenter(this);
-        mCompositeDisposable = new CompositeDisposable();
-    }
-
+public class GirlRemoteDataSource implements BaseDataSource {
     @Override
-    public void subscribe() {
-
-    }
-
-    @Override
-    public void unsubscribe() {
-        mCompositeDisposable.clear();
-    }
-
-    @Override
-    public void loadData(String type) {
+    public void loadData(LoadDataCallback callback) {
         CallBack<GankDataResponse> callBack = new CallBack<GankDataResponse>() {
             @Override
             public void onSuccess(GankDataResponse gankDataResponse) {
-                mView.setRefreshing(false);
                 ArrayList<GankItem> list  = new ArrayList<GankItem>();
                 if(gankDataResponse != null && gankDataResponse.data != null){
                     for (GankItemBean bean : gankDataResponse.data){
-                        list.add(new GankContentItem(bean));
+                        if (GankType.TYPE_GIRL.equals(bean.type)) {
+                            list.add(new GankGirlItem(bean));
+                        } else {
+                            list.add(new GankContentItem(bean));
+                        }
                     }
                 }
-                mView.updateData(list);
-                mView.updateSuccess(list.isEmpty());
+                callback.onLoaded(list);
             }
 
             @Override
             public void onFail() {
-                mView.setRefreshing(false);
-                mView.updateError();
+                callback.onError();
             }
         };
-        RequestManager.getInstance().getGankData(type, 20, 1, callBack);
+        RequestManager.getInstance().getGirlData(20,1,callBack);
     }
 
     @Override
-    public void loadMore(String type, int page) {
+    public void loadMoreData(int page, LoadDataCallback callback) {
         CallBack<GankDataResponse> callBack = new CallBack<GankDataResponse>() {
             @Override
             public void onSuccess(GankDataResponse gankDataResponse) {
                 ArrayList<GankItem> list = new ArrayList<GankItem>();
                 if (gankDataResponse != null && gankDataResponse.data != null) {
                     for (GankItemBean bean : gankDataResponse.data) {
-                        list.add(new GankContentItem(bean));
+                        list.add(new GankGirlItem(bean));
                     }
                 }
-                mView.updateMoreData(list);
+                callback.onLoaded(list);
             }
 
             @Override
             public void onFail() {
-                mView.updateLoadMoreError();
+                callback.onError();
             }
         };
-        RequestManager.getInstance().getGankData(type, 20, page, callBack);
+        RequestManager.getInstance().getGirlData(20,page,callBack);
+    }
+
+    @Override
+    public void updateData(List<GankItem> list) {
+
     }
 }

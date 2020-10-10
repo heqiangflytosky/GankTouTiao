@@ -8,6 +8,9 @@ public interface GankListContract {
     interface Presenter extends BasePresenter {
         void loadMore(String type, int page);
     }
+    interface GrilPresenter extends Presenter {
+        void updateDate();
+    }
     interface View extends BaseView<Presenter> {
         void setRefreshing(boolean refreshing);
         void updateData(List<GankItem> list);

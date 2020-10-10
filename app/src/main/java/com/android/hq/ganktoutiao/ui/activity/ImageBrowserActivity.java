@@ -14,10 +14,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.android.hq.ganktoutiao.R;
 import com.android.hq.ganktoutiao.data.GankGirlItem;
 import com.android.hq.ganktoutiao.data.GankItem;
+import com.android.hq.ganktoutiao.mvp.GankListContract;
+import com.android.hq.ganktoutiao.mvp.GirlDataSource;
+import com.android.hq.ganktoutiao.mvp.GirlListPresenter;
 import com.android.hq.ganktoutiao.ui.view.WrapContentDraweeView;
 import com.android.hq.ganktoutiao.utils.Event;
 import com.facebook.drawee.drawable.ScalingUtils;
@@ -28,13 +32,16 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.List;
 import java.util.Map;
 
-public class ImageBrowserActivity extends AppCompatActivity {
+public class ImageBrowserActivity extends AppCompatActivity implements GankListContract.View {
 
     public static final String EXTRA_DATA = "EXTRA_DATA";
     public static final String EXTRA_INDEX = "EXTRA_INDEX";
     private ViewPager2 mViewPager;
     private Adapter mAdapter;
+    private TextView mIndexText;
     private List<GankItem> mList;
+    private int mInitIndex;
+    private GirlListPresenter mGirlListPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +56,16 @@ public class ImageBrowserActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_image_browser);
         setFullScreen();
+        mInitIndex = getIntent().getIntExtra(EXTRA_INDEX, 0);
         init();
-        mList = (List<GankItem>)getIntent().getSerializableExtra(EXTRA_DATA);
-        int index = getIntent().getIntExtra(EXTRA_INDEX, 0);
-        setData(mList);
-        mViewPager.setCurrentItem(index, false);
+        new GirlListPresenter(this, GirlDataSource.getInstance());
+        loadData();
+        //mList = (List<GankItem>)getIntent().getSerializableExtra(EXTRA_DATA);
+        //setData(mList);
+        //mViewPager.setCurrentItem(index, false);
         mViewPager.registerOnPageChangeCallback(mPageChangeCallback);
+
+        //mIndexText.setText(index+"/"+mList.size());
 
         //监听viewpager布局树已经绘制完成
         mViewPager.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -109,11 +120,16 @@ public class ImageBrowserActivity extends AppCompatActivity {
         mViewPager = findViewById(R.id.view_pager);
         mAdapter = new Adapter();
         mViewPager.setAdapter(mAdapter);
+        mIndexText = findViewById(R.id.index);
     }
 
-    public void setData(List<GankItem> list) {
+    private void setData(List<GankItem> list) {
         mList = list;
         mAdapter.notifyDataSetChanged();
+    }
+
+    private void loadData() {
+        mGirlListPresenter.loadData(null);
     }
 
     private ViewPager2.OnPageChangeCallback mPageChangeCallback = new ViewPager2.OnPageChangeCallback() {
@@ -124,8 +140,48 @@ public class ImageBrowserActivity extends AppCompatActivity {
 //            event.currentIndex = mViewPager.getCurrentItem();
 //            event.list = mList;
 //            EventBus.getDefault().post(event);
+            mIndexText.setText(position+"/"+mList.size());
         }
     };
+
+    @Override
+    public void setRefreshing(boolean refreshing) {
+
+    }
+
+    @Override
+    public void updateData(List<GankItem> list) {
+        mList = list;
+        setData(mList);
+        mViewPager.setCurrentItem(mInitIndex, false);
+
+        mIndexText.setText(mInitIndex+"/"+mList.size());
+    }
+
+    @Override
+    public void updateMoreData(List<GankItem> list) {
+
+    }
+
+    @Override
+    public void updateSuccess(boolean isEmpty) {
+
+    }
+
+    @Override
+    public void updateError() {
+
+    }
+
+    @Override
+    public void updateLoadMoreError() {
+
+    }
+
+    @Override
+    public void setPresenter(GankListContract.Presenter presenter) {
+        mGirlListPresenter = (GirlListPresenter) presenter;
+    }
 
     public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
