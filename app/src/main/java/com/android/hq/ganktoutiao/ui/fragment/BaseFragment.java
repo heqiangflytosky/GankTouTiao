@@ -45,6 +45,8 @@ public abstract class BaseFragment extends Fragment {
     protected ListAdapter mAdapter;
     @BindView(R.id.empty_view)
     protected EmptyView mEmptyView;
+    @BindView(R.id.load_more)
+    protected View mLoadMore;
 
     private boolean mLoadingMore = false;
     protected RecyclerView.LayoutManager mLayoutManager;
@@ -116,11 +118,13 @@ public abstract class BaseFragment extends Fragment {
 
     public void startLoadMore() {
         loadMore();
+        mLoadMore.setVisibility(View.VISIBLE);
         mLoadingMore = true;
 
     }
 
     public void loadMoreSuccess(boolean isEmpty){
+        mLoadMore.setVisibility(View.GONE);
         mLoadingMore = false;
         long currentTime = SystemClock.uptimeMillis();
         if(isEmpty && (currentTime - mShowLoadMoreTipsTime > 2000)){
@@ -130,6 +134,7 @@ public abstract class BaseFragment extends Fragment {
     }
 
     public void loadMoreError(){
+        mLoadMore.setVisibility(View.GONE);
         mLoadingMore = false;
         long currentTime = SystemClock.uptimeMillis();
         if(currentTime - mShowLoadMoreTipsTime > 2000){

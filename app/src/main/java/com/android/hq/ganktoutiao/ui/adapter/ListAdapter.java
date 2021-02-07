@@ -235,8 +235,8 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     public void loadMoreData(List<GankItem> list){
-        mList.remove(mList.size() - 1);
-        notifyItemRangeRemoved(mList.size(),1);
+        //mList.remove(mList.size() - 1);
+        //notifyItemRangeRemoved(mList.size(),1);
         if(list != null) {
             int size = mList.size();
             mList.addAll(size,list);
@@ -245,9 +245,11 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     public void onLoadMore(){
+        /*
         int size = mList.size();
         mList.add(new GankFooterItem());
         notifyItemRangeInserted(size,1);
+        */
     }
 
     public List<GankItem> getData() {
